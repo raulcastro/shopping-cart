@@ -9,6 +9,6 @@
 // 		define ('DB_HOST', 'internal-db.s161140.gridserver.com');
 // 	}
 	
-	define ('DB_USER', 'db161140_2go');
-	define ('DB_PASS', 'where2GO');
-	define ('DB_NAME', 'db161140_bzr');
+	define ('DB_USER', '');
+	define ('DB_PASS', '');
+	define ('DB_NAME', '');
