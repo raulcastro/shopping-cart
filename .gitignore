@@ -3,6 +3,10 @@
 .project
 .settings 
 
+# Sensitive info
+Framework/Connection_Data.php
+
+
 # Object files
 *.o
 *.ko
