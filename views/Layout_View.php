@@ -1,11 +1,17 @@
 <?php
+$root = $_SERVER['DOCUMENT_ROOT'];
+require_once $root.'/Framework/Tools.php';
+
 class Layout_View
 {
-	public function __construct()
+	private $data;
+	
+	public function __construct($data)
 	{
+		$this->data = $data;
 	}
 	
-	public static function getMainPage()
+	public function getMainPage()
 	{
 	ob_start();
 	?>
@@ -17,7 +23,7 @@ class Layout_View
 	<body class="home page page-id-2 page-template-default countryorigin-int">
 		<div id="container">
 			<header role="banner">
-				<h1 id="logo"><a href="/" title="Bazar en linea" rel="home">Bazar en linea</a></h1>
+				<h1 id="logo"><a href="/" title="<?php echo $this->data['appInfo']['title']; ?>" rel="home"><?php echo $this->data['appInfo']['title']; ?></a></h1>
 				<?php echo self::getGeneralTopNavigation(); ?>
 				<?php echo self::getGeneralMainNavigation(); ?>
 			</header>
@@ -28,9 +34,9 @@ class Layout_View
 		</div> <!-- /containter -->
 		
 		<footer role="contentinfo">
-			<?php echo self::getGeneralFooter(); ?>
+			<?php echo self::getGeneralFooter($data); ?>
 		</footer><!-- footer -->
-		<?php echo self::getGeneralCopyright(); ?>
+		<?php echo self::getGeneralCopyright($data); ?>
 		<?php echo self::getGeneralSeoScripts(); ?>
 	
 	</body>
@@ -52,12 +58,12 @@ class Layout_View
 	 * 
 	 */
 	
-	public static function getMainHeader()
+	public  function getMainHeader()
 	{
 	 ob_start();
 	 ?>
  	<meta charset="UTF-8" />
-	<title>Bazar en Linea</title>
+	<title><?php echo $this->data['appInfo']['title']; ?></title>
 
 	<link rel="icon" href="favicon.ico" type="image/x-icon" />
 	<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
@@ -65,16 +71,15 @@ class Layout_View
 	<link rel="stylesheet" href="/css/base.css" />
 	<link rel="stylesheet" href="/css/style.css" />
 
-	<meta property="og:title" content="Bazar en linea" />
+	<meta property="og:title" content="<?php echo $this->data['appInfo']['title']; ?>" />
 	<meta property="og:image" content="" />
-	<meta property="og:description" content="" />
-	<meta name="description" content=""/>
+	<meta property="og:description" content="<?php echo $this->data['appInfo']['description']; ?>" />
+	<meta name="description" content="<?php echo $this->data['appInfo']['description']; ?>"/>
 	<meta property="og:type" content="website" /> 
-	<meta property="og:url" content="azarenlinea.com.mx" />
-	<meta property="og:site_name" content="Bazar en linea" />
+	<meta property="og:url" content="<?php echo $this->data['appInfo']['url']; ?>" />
+	<meta property="og:site_name" content="<?php echo $this->data['appInfo']['siteName']; ?> />
 	<meta property="fb:admins" content="" />
-	<meta name="keywords" content="where to go playa del carmen, riviera maya,tulum,
-        			where to go, where 2 go, where 2go" />
+	<meta name="keywords" content="<?php echo $this->data['appInfo']['keywords']; ?>" />
 
 <!-- 	<meta name="viewport" content="width=device-width,initial-scale=1"> -->
 
@@ -180,7 +185,7 @@ class Layout_View
 		return $topNavigation;
 	}
 	
-	public static function getGeneralMainNavigation()
+	public function getGeneralMainNavigation()
 	{
 		ob_start();
 		?>
@@ -188,10 +193,18 @@ class Layout_View
 			<a id="skip" href="#content" class="visuallyhidden" title="Skip to content">Skip to content</a>
 			<ul>
 				<li><a href="/store/latest-products"><span>Ultimos productos</span></a></li>
-				<li><a href="/store/brands"><span>Accesorios para celular</span></a></li>
-				<li><a href="/store/clothing"><span>Deportes</span></a></li>
-				<li><a href="/store/accessories"><span>Hogar</span></a></li>
-				<li><a href="/store/footwear"><span>Gadgets</span></a></li>
+				<?php
+					foreach ($this->data['sections'] as $section)
+					{
+						?>
+				<li>
+					<a href="/store/<?php echo $section['section_id'];?>/<?php echo Tools::slugify($section['title']); ?>/">
+						<span><?php echo $section['title']; ?></span>
+					</a>
+				</li>
+						<?php
+					}
+				?>
 			</ul>
 		</nav><!-- #access -->
 		<?php 
@@ -290,7 +303,7 @@ class Layout_View
 		return $mainGrid;
 	}
 	
-	public static function getGeneralFooter()
+	public function getGeneralFooter()
 	{
 		ob_start();
 		?>
@@ -301,8 +314,8 @@ class Layout_View
 					<li class="shopping-bag"><a href="">Shopping Bag</a></li>
 					<li><a href="/features">Features</a></li>
 					<li><a href="/news">News</a></li>
-					<li class="tw"><a href="" target="_blank">Follow us on Twitter</a></li>
-					<li class="fb"><a href="" target="_blank">Join us on Facebook</a></li>
+					<li class="tw"><a href="<?php echo $this->data['appInfo']['facebook']; ?>" target="_blank">S&iacute;guenos en Twitter</a></li>
+					<li class="fb"><a href="<?php echo $this->data['appInfo']['twitter']; ?>" target="_blank">Unete a Facebook</a></li>
 				</ul>
 			</nav>	
 			<address>
@@ -345,7 +358,7 @@ class Layout_View
 		
 	}
 	
-	public static function getGeneralCopyright()
+	public function getGeneralCopyright($data)
 	{
 		ob_start();
 		$generalCopyRight = ob_get_contents();
@@ -353,8 +366,8 @@ class Layout_View
 		?>
 		<div id="copyright">
 			<div class="wrapper">
-				<p class="copyright">2014 Bazar en linea All rights reserved. </p>
-				<p class="site-by"><span>Site by:</span> <a href="" target="_blank">whreretogoplaya</a></p>			
+				<p class="copyright">&copy; <?php echo date('Y'); ?> Bazar en linea, All rights reserved. </p>
+				<p class="site-by"><span>Site by:</span> <a href="<?php echo $this->data['appInfo']['creator_url']; ?>" target="_blank"><?php echo $this->data['appInfo']['creator']; ?></a></p>			
 			</div>
 		</div>
 		<?php 
