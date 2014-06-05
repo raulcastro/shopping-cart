@@ -14,6 +14,9 @@ class generalBackend
 	public function loadIndexInfo()
 	{
 		$data 		= array();
+		
+// 		Info of the Application
+		
 		$appInfoRow = $this->model->getGeneralAppInfo();
 		
 		$appInfo = array( 
@@ -32,6 +35,14 @@ class generalBackend
 		
 		$data['appInfo'] = $appInfo;
 
+// 		array of the main sliders
+		
+		$slidersArray = $this->model->getMainSliders();
+		
+		$data['mainSliders'] = $slidersArray;
+		
+// 		Sections, this is for the links
+		
 		$sectionsArray = $this->model->getMainSections();
 		
 		$data['sections'] = $sectionsArray;

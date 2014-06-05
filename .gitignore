@@ -6,6 +6,7 @@
 # Sensitive info
 /Framework/Connection_Data.php
 
+pictures-content/
 
 # Object files
 *.o

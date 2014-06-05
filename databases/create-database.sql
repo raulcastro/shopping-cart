@@ -39,3 +39,25 @@ CREATE TABLE main_sliders (
     url         VARCHAR(512) NULL,
     PRIMARY KEY(slider_id)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT = 1;
+
+CREATE TABLE categories (
+    category_id INT(3) NOT NULL AUTO_INCREMENT,
+    section_id  INT(3) NOT NULL,
+    title       VARCHAR(512) NOT NULL,
+    description VARCHAR(512) NULL,
+    keywords    VARCHAR(512) NULL,
+    picture     VARCHAR(512) NULL,
+    curdate     TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY     KEY(category_id)
+) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT = 1;
+
+CREATE TABLE subcategories (
+    subcategory_id INT(3) NOT NULL AUTO_INCREMENT,
+    category_id INT(3) NOT NULL,
+    title       VARCHAR(512) NOT NULL,
+    description VARCHAR(512) NULL,
+    keywords    VARCHAR(512) NULL,
+    picture     VARCHAR(512) NULL,
+    curdate     TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY     KEY(category_id)
+) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT = 1;

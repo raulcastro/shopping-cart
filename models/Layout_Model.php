@@ -33,17 +33,27 @@ class Layout_Model
 		}
 	}
 	
+	public function getMainSliders()
+	{
+		try {
+			$query = 'SELECT * FROM main_sliders';
+			return $this->db->getArray($query);
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+	
 	/*
 	 * getMainSections
-	 * 
-	 */
+	*
+	*/
 	
 	public function getMainSections()
 	{
 		try {
 			$query = 'SELECT * FROM sections';
 			return $this->db->getArray($query);
-			
+				
 		} catch (Exception $e) {
 			return false;
 		}

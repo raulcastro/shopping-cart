@@ -213,22 +213,24 @@ class Layout_View
 		return $mainNavigation;
 	}
 	
-	public static function getMainSlider()
+	public function getMainSlider()
 	{
 		ob_start();
 		?>
 		<div id="keyviz">
 			<ul class="reset" id="mainSlider">
+			<?php 
+				foreach ($this->data['mainSliders'] as $slider )
+				{
+				?>
 				<li>
-					<a href="" title="Converse X Margiela">
-						<img src="/pictures-content/slider1.jpg" alt="Converse X Margiela">
+					<a href="<?php echo $slider['url']; ?>" title="<?php echo $slider['name']; ?>">
+						<img src="/pictures-content/main-sliders/front/<?php echo $slider['slider']; ?>" alt="<?php echo $slider['name']; ?>" />
 					</a>
 				</li>
-				<li>
-					<a href="" title="HAN SUNGLASSES">
-						<img src="/pictures-content/slider2.jpg" alt="HAN SUNGLASSES">
-					</a>
-				</li>
+				<?php 	
+				}
+			?>
 			</ul>
 		</div>
 		<?php
