@@ -1,7 +1,7 @@
 @CHARSET "UTF-8";
 
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700,600);
-
+@import url('be-font-face.css');
+url('@font-face/entypo.ttf') format('truetype'),
 * {
     filter: none;
 }
@@ -80,7 +80,7 @@ html {
 body {
     margin:0;
     padding: 0;
-    height: 100%;
+    height: auto;
     font-family: arial;
     font-size: 12px;
     background: #f7f7f7;

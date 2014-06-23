@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  *	Mysqli.php
  *	Extension of php's mysqli
  *
@@ -14,7 +14,7 @@
 
 class Mysqli_Tool extends mysqli
 {
-	/*	__construct
+	/** __construct
 	 *	Starts a mysqli connection
 	 *
 	 *	@param	string	Host
@@ -34,7 +34,7 @@ class Mysqli_Tool extends mysqli
 		}
 	}
 
-	/*	run
+	/**	run
 	 *	Runs a query that returns no results (INSERT, UPDATE, etc...)
 	 *
 	 *	@param	string	Query to be executed
@@ -51,7 +51,7 @@ class Mysqli_Tool extends mysqli
 		return $result;
 	}
 
-	/*	getArray
+	/**	getArray
 	 *	Runs a query and returns the result as an array
 	 *
 	 *	@param	string	Query to be executed.
@@ -77,7 +77,7 @@ class Mysqli_Tool extends mysqli
 		return $result;
 	}
 
-	/*	getRow
+	/**	getRow
 	 *	Runs a query and returns the first result row
 	 *
 	 *	@param	string	Query to be executed.
@@ -100,7 +100,7 @@ class Mysqli_Tool extends mysqli
 		return $result;
 	}
 	
-	/*	getValue
+	/**	getValue
 	 *	Runs a query and returns the first result row
 	 *
 	 *	@param	string	Query to be executed.

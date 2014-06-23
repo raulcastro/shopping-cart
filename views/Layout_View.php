@@ -58,7 +58,7 @@ class Layout_View
 	 * 
 	 */
 	
-	public  function getMainHeader()
+	public function getMainHeader()
 	{
 	 ob_start();
 	 ?>

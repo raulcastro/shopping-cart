@@ -1,6 +1,6 @@
 <?php
-/*
- * Created on Jul 30, 2013
+/**
+ * Created on Jun 30, 2014
  *
  *All these little tiny shitty functions we use around the code
  */
@@ -12,7 +12,7 @@ class Tools
     
     }
     
-   /* Converts all accent characters to ASCII characters.
+   /** Converts all accent characters to ASCII characters.
 	*
 	* If there are no accent characters, then the string given is just returned.
 	*
@@ -277,7 +277,7 @@ class Tools
 		return $title;
 	}
 	
-	/*
+	/**
 	 * This shitty thing returns a random string with the length of @param size
 	 */
 	
@@ -299,16 +299,22 @@ class Tools
         return strtolower($rand);
     }
     
-    /*
-     * Clean the string for security reasons
-     * 
-     */
-     
+	/**
+	 * Clean the string for security reasons
+	 * 
+	 * @param unknown $string
+	 * @return mixed
+	 */     
 	public static function cleanString($string)
 	{
 		return preg_replace('/[^\w\._]+/', '_', $string);
 	}
      
+	/**
+	 * Return a date ready for use on an mysql query
+	 * @param unknown $date
+	 * @return string
+	 */
     public function formatToMYSQL($date)
     {
         if ($date)
@@ -319,6 +325,10 @@ class Tools
         }
     }
     
+    /**
+     * Format a date from mysql ready for the front end
+     * @param unknown $date
+     */
     public function formatMYSQLToFront($date)
     {
 //        if ($date)
@@ -424,15 +434,6 @@ class Tools
 		}
 
 	#     echo $to.'|'.$width.'|'.$height;
-	}
-	
-	public function getURL($name)
-	{
-		$name = ltrim($name);
-		$name = rtrim($name);
-	    $name = str_replace(' ', '-', $name);
-	    
-	    return $name;
 	}
 }
 ?>
