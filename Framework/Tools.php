@@ -349,7 +349,126 @@ class Tools
 		
 		return $string;
     }
-     
+	
+    /**
+     * Chars, numbers and midle sings
+     * @param string $string
+     * @param number $max
+     * @param number $min
+     * @return boolean
+     */
+    public static function validateUserName($string, $max = 250, $min = 0)
+    {
+    	$pattern = "/^[a-zA-Z0-9_-]{".$min.",".$max."}$/";
+    	if(preg_match($pattern, $string))
+    	{
+    		return true;
+    	}
+    	else
+    	{
+    		return false;
+    	}
+    }
+    
+    /**
+     * Just chars and spaces
+     * @param string $string
+     * @param number $max
+     * @param number $min
+     * @return boolean
+     */
+    public static function validateAlpha($string, $max = 250, $min = 0)
+    {
+    	$pattern = "/^[a-zA-ZáéíóúÁÉÍÓÚ\s]{".$min.",".$max."}$/";
+    	if(preg_match($pattern, $string))
+    	{
+    		return true;
+    	}
+    	else
+    	{
+    		return false;
+    	}
+    }
+    
+    /**
+     * Just digits and decimal points
+     * @param string $string
+     * @param number $max
+     * @param number $min
+     * @return boolean
+     */
+    public static function validateNumber($string, $max = 250, $min = 0)
+    {
+    	$pattern = "/^[0-9\.]{".$min.",".$max."}$/";
+    	if(preg_match($pattern, $string))
+    	{
+    		return true;
+    	}
+    	else
+    	{
+    		return false;
+    	}
+    }
+    
+    /**
+     * Just digits
+     * @param string $string
+     * @param number $max
+     * @param number $min
+     * @return boolean
+     */
+    public static function validateDigits($string, $max = 250, $min = 0)
+    {
+    	$pattern = "/^[0-9]{".$min.",".$max."}$/";
+    	if(preg_match($pattern, $string))
+    	{
+    		return true;
+    	}
+    	else
+    	{
+    		return false;
+    	}
+    }
+    
+    /**
+     * Emails
+     * @param string $string
+     * @return boolean
+     */
+    public static function validateEmail($string)
+    {
+    	$string = trim($string);
+    	$pattern = "/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/";
+    	if(preg_match($pattern, $string))
+    	{
+    		return true;
+    	}
+    	else
+    	{
+    		return false;
+    	}
+    }
+    
+    /**
+     * Chars without tags
+     * @param string $string
+     * @param number $max
+     * @param number $min
+     * @return boolean
+     */
+    public static function validateText($string, $max = 2000, $min = 0)
+    {
+    	$pattern = "/^[áéíóúÁÉÍÓÚñÑ-\w\s\.\,\?\¿\!\¡\:\;\@]{".$min.",".$max."}$/";
+    	if(preg_match($pattern, $string))
+    	{
+    		return true;
+    	}
+    	else
+    	{
+    		return false;
+    	}
+    }
+    
     public function getThumb($name, $from, $to,  $value, $prop, $pre = '', $quality = 100)
 	{
 		$original = $from.$name;

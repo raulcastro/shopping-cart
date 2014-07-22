@@ -60,10 +60,16 @@ class Admin_Layout_View
 		ob_start();
 	?>
 		<section>
-			<h1><strong><?php echo $this->data['appInfo']['siteName']; ?></strong> Dashboard</h1>
-			<form method="link" action="dashboard.html">
-				<input type="text" value="Email" />
-				<input value="Password" type="password" />
+			<h1>
+				<strong><?php echo $this->data['appInfo']['siteName']; ?></strong> 
+				Dashboard
+			</h1>
+			
+			<form method="post" id="login-form" 
+					action="<?php echo $_SERVER['REQUEST_URI']; ?>">
+				<input type="text" value="Email" name="loginUser" />
+				<input value="Password" type="password" name="loginPass" />
+				<input type="hidden" name="submitButton" value="1">
 				<button class="blue">Login</button>
 			</form>
 			<p><a href="#">Forgot your password?</a></p>

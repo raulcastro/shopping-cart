@@ -1,4 +1,10 @@
-<?php ?>
+<?php 
+require_once '../backends/general.php';
+$backend 	= new generalBackend();
+$data 		= $backend->loadIndexInfo();
+
+$layoutView = new Admin_Layout_View($data);
+?>
 
 
 <!DOCTYPE html>
