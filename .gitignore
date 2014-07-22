@@ -1,7 +1,8 @@
 # Eclipse Files
 .buildpath
 .project
-.settings 
+.settings
+.settings/org.eclipse.core.resources.prefs 
 
 # Sensitive info
 /Framework/Connection_Data.php

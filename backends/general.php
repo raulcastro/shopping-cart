@@ -29,7 +29,11 @@ class generalBackend
 				'creator' 		=> $appInfoRow['creator'],
 				'creatorUrl' 	=> $appInfoRow['creator_url'],
 				'twitter' 		=> $appInfoRow['twitter'],
-				'facebook' 		=> $appInfoRow['facebook']
+				'facebook' 		=> $appInfoRow['facebook'],
+				'googleplus' 	=> $appInfoRow['googleplus'],
+				'pinterest' 	=> $appInfoRow['pinterest'],
+				'linkedin' 		=> $appInfoRow['linkedin'],
+				'lang'			=> $appInfoRow['lang']
 				
 		);
 		
