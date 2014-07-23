@@ -54,7 +54,7 @@ class Layout_View
 	return $mainPage;
 	}
 
-	/*
+	/**
 	 * getMainHeader
 	 * 
 	 * This function returns the headeer of the index, by now, it can 
@@ -107,7 +107,7 @@ class Layout_View
 	 return $header;
 	}
 	
-	/*
+	/**
 	 * getGeneralCSS
 	 * 
 	 * it returns the common css needed for all the pages of the website
@@ -134,7 +134,7 @@ class Layout_View
 		return $generalCSS;
 	}
 	
-	/*
+	/**
 	 * getGeneralScripts
 	*
 	* it returns the common JS needed for all the pages of the website
@@ -160,7 +160,7 @@ class Layout_View
 		return $generalScripts;
 	}
 	
-	/*
+	/**
 	 * getGeneralTopNavigation
 	 * 
 	 * Is the very top menu, it has functions like login/register and some 
@@ -229,7 +229,7 @@ class Layout_View
 		return $topNavigation;
 	}
 	
-	/*
+	/**
 	 * getGEneralMainNavigation
 	 * 
 	 * is the real menu of the application, is where we show dinamically the 
@@ -294,7 +294,7 @@ class Layout_View
 		return $mainNavigation;
 	}
 	
-	/*
+	/**
 	 * getMainSlider
 	 * 
 	 * is the main slider, only displayed on the index
@@ -360,7 +360,7 @@ class Layout_View
 		return $mainSlider;
 	}
 	
-	/*
+	/**
 	 * getMainTopOffers
 	 * 
 	 * This section appears on the index and other section. It display the top 
@@ -392,7 +392,7 @@ class Layout_View
 		return $topOffers;
 	}
 	
-	/*
+	/**
 	 * getMainPromotted
 	 * 
 	 * it's a section that displays the promotted products, it can has a many 
@@ -480,7 +480,7 @@ class Layout_View
 		return $promotted;
 	}
 	
-	/*
+	/**
 	 * getMainItemsGrid
 	 * 
 	 * This section show a grid of products, probabily will show the latest ones
@@ -583,7 +583,7 @@ class Layout_View
 		return $mainItemGrid;
 	}
 	
-	/*
+	/**
 	 * getMainContent
 	 * 
 	 * This section is the content showed on the display, it shows basically a 
@@ -608,7 +608,7 @@ class Layout_View
 		return $mainGrid;
 	}
 	
-	/*
+	/**
 	 * getGeneralFooter
 	 * 
 	 * This is the footer, it contains the contact info, newsletter, sitemap and so
@@ -754,7 +754,7 @@ class Layout_View
 		return $generalFooter;
 		
 	}
-	/*
+	/**
 	 * getGeneralCopyright
 	 * 
 	 * is the last section, under the footer, about who created the website
@@ -778,7 +778,7 @@ class Layout_View
 		return $generalCopyRight;
 	}
 	
-	/*
+	/**
 	 * getGeneralSeoScipts
 	 * 
 	 * this is basically the script that Google gives you for index
@@ -798,7 +798,7 @@ class Layout_View
 		return $generalSeoScripts;
 	}
 	
-	/*
+	/**
 	 * getShoppingCart
 	 * 
 	 * Probabily the most important function on the website =)

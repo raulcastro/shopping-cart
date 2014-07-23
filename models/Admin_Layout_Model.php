@@ -1,8 +1,8 @@
 <?php
 $root = $_SERVER['DOCUMENT_ROOT'];
-require_once $root.'/Framework/Front_Default_Header.php';
+require_once $root.'/Framework/Back_Default_Header.php';
 
-class Layout_Model
+class Admin_Layout_Model
 {
     private $db; 
 	

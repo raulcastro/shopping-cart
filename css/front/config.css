@@ -1,5 +1,23 @@
-@import "http://fonts.googleapis.com/css?family=Vidaloka";
-@import "http://fonts.googleapis.com/css?family=Raleway:400,700";
+@font-face {
+  font-family: 'Vidaloka';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Vidaloka '), local('Vidaloka-Regular'), url(/css/fonts/Vidaloka-Regular-400.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Raleway'), url(/css/fonts/Raleway-400.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Raleway Bold'), local('Raleway-Bold'), url(/css/fonts/Raleway-700.woff) format('woff');
+}
 
 body,
 .mi-slider ul li h4 {
