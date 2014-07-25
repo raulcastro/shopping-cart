@@ -87,8 +87,6 @@ class Admin_Layout_View
 		{
 			ob_start();
 			?>
-			
-			
 			<script src="/js/jquery-1.6.1.min.js"></script>
 			<script src="/js/back/scripts.js"></script>
 			<script src="/js/back/jquery.wysiwyg.js"></script>
@@ -114,7 +112,7 @@ class Admin_Layout_View
 	 * 
 	 * @return string
 	 */
-	public function getCommonContentSection()
+	public function getCommonContentSection($page)
 	{
 		ob_start();
 		?>
@@ -122,7 +120,20 @@ class Admin_Layout_View
 		<?php echo self::getSideBar(); ?>
 		<?php echo self::getMainAlert(); ?>
 		<section class="content">
-			<?php echo self::getSectionsContent(); ?>
+			<?php 
+				switch ($page)
+				{
+					case 'sections':
+						echo self::getSectionsContent();
+					break;
+						
+					case 'settings':
+						echo self::getSettingsContent();
+					break;
+				}
+			?>
+		
+			<?php  ?>
 		</section>
 		<?php
 		$body = ob_get_contents();
@@ -148,7 +159,9 @@ class Admin_Layout_View
 			</header>
 			<section class="user">
 			    <div class="profile-img">
-			        <p><img src="images/uiface2.png" alt="" height="40" width="40" /> Welcome back John Doe</p>
+			        <p>
+<!-- 			        	<img src="images/uiface2.png" alt="" height="40" width="40" />  -->
+			        Welcome back <?php echo $this->data['userInfo']['userName']; ?></p>
 			    </div>
 			    <?php echo self::getTopNotifications(); ?>
 			</section>
@@ -222,14 +235,13 @@ class Admin_Layout_View
 		    <ul>
 		        <li><a href="dashboard.html"><span class="icon">&#59176;</span> Dashboard</a></li>
 		        <li class="section">
-		            <a href="pages-table.html"><span class="icon">&#128196;</span> Sections</a>
+		            <a href="pages-table.html"><span class="icon">&#128196;</span> Sections<span class="pip"><?php echo sizeof($this->data['sections']); ?></span></a>
 		            <ul class="submenu">
 		                <li><a href="page-new.html">Create section</a></li>
-		                <li><a href="page-timeline.html">View sections</a></li>
 		            </ul>   
 		        </li>
 		        <li>
-		            <a href="files.html"><span class="icon">&#127748;</span> Sliders <span class="pip">2</span></a>
+		            <a href="files.html"><span class="icon">&#127748;</span> Sliders <span class="pip"><?php echo sizeof($this->data['mainSliders']); ?></span></a>
 		            <ul class="submenu">
 		                <li><a href="files-upload.html">New slider</a></li>
 		                <li><a href="files.html">View sliders</a></li>
@@ -253,10 +265,7 @@ class Admin_Layout_View
 		        <li><a href="statistics.html"><span class="icon">&#128202;</span> Statistics</a></li>
 		        <li><a href="users.html"><span class="icon">&#128101;</span> Users <span class="pip">3</span></a></li>
 		        <li>
-		            <a href="ui-elements.html"><span class="icon">&#9881;</span> Settings</a>
-		            <ul class="submenu">
-		                <li><a href="icon-fonts.html">Icon fonts</a></li>
-		            </ul>
+		            <a href="settings.php"><span class="icon">&#9881;</span> Settings</a>
 		        </li>
 		    </ul>
 		</nav>
@@ -288,6 +297,13 @@ class Admin_Layout_View
 		return $alert;
 	}
 	
+	/**
+	 * getSectionsContent
+	 * 
+	 * the body for the sections 
+	 * 
+	 * @return string
+	 */
 	public function getSectionsContent()
 	{
 		ob_start();
@@ -296,16 +312,17 @@ class Admin_Layout_View
 	        <header>
 	            <span class="icon">&#128196;</span>
 	            <hgroup>
-	                <h1>Pages</h1>
-	                <h2>CMS content pages</h2>
+	                <h1>Sections</h1>
+	                <h2>Main sections</h2>
 	            </hgroup>
 	            <aside>
 	                <span>
 	                    <a href="#">&#9881;</a>
 	                    <ul class="settings-dd">
-	                        <li><label>Option a</label><input type="checkbox" /></li>
-	                        <li><label>Option b</label><input type="checkbox" checked="checked" /></li>
-	                        <li><label>Option c</label><input type="checkbox" /></li>
+	                        <li><label>Create section</label><input type="checkbox" /></li>
+	                        <li><label>Publish</label><input type="checkbox" checked="checked" /></li>
+	                        <li><label>Unpublish</label><input type="checkbox" /></li>
+	                        <li><label>Delete</label><input type="checkbox" /></li>
 	                    </ul>
 	                </span>
 	            </aside>
@@ -314,77 +331,43 @@ class Admin_Layout_View
 	            <table id="myTable" border="0" width="100">
 	                <thead>
 	                    <tr>
-	                        <th>Page title</th>
+	                        <th>Section title</th>
 	                        <th >Date</th>
-	                        <th>Child pages</th>
-	                        <th>Comments</th>
-	                        <th>Author</th>
+	                        <th>Products</th>
+	                        <th>Stock</th>
+	                        <th>Published</th>
 	                    </tr>
 	                </thead>
 	                    <tbody>
-	                        <tr>
-	                            <td><input type="checkbox" /> Home</td>
-	                            <td>01/3/2013</td>
+	                    <?php 
+	                    foreach ($this->data['sections'] as $sections)
+	                    {
+	                    	?>
+	                    	<tr>
+	                            <td><input type="checkbox" /> <?php echo $sections['title']; ?></td>
+	                            <td><?php echo Tools::formatMYSQLToFront($sections['curdate']); ?></td>
 	                            <td>0</td>
 	                            <td>0</td>
-	                            <td>John Doe</td>
+	                            <td><span class="entyphochar">
+	                            <?php 
+	                            if ($sections['published'] == 1)
+	                            {
+	                            	?>
+	                            	&#10003;
+	                            	<?php
+	                            }
+	                            else 
+	                            {
+	                            	?>
+	                            	&#128683;
+	                            	<?php
+	                            }
+	                            ?>
+	                            </span></td>
 	                        </tr>
-	                        <tr>
-	                            <td><input type="checkbox" /> Services</td>
-	                            <td>01/3/2013</td>
-	                            <td>4</td>
-	                            <td>0</td>
-	                            <td>John Doe</td>
-	                        </tr>
-	                        <tr>
-	                            <td><input type="checkbox" /> Portfolio</td>
-	                            <td>02/3/2013</td>
-	                            <td>12</td>
-	                            <td>0</td>
-	                            <td>John Doe</td>
-	                        </tr>
-	                        <tr>
-	                            <td><input type="checkbox" /> About us</td>
-	                            <td>02/3/2013</td>
-	                            <td>2</td>
-	                            <td>0</td>
-	                            <td>John Doe</td>
-	                        </tr>
-	                        <tr>
-	                            <td><input type="checkbox" /> Blog</td>
-	                            <td>02/3/2013</td>
-	                            <td>32</td>
-	                            <td>0</td>
-	                            <td>John Doe</td>
-	                        </tr>
-	                        <tr>
-	                            <td><input type="checkbox" /> Contact us</td>
-	                            <td>03/3/2013</td>
-	                            <td>0</td>
-	                            <td>0</td>
-	                            <td>John Doe</td>
-	                        </tr>
-	                        <tr>
-	                            <td><input type="checkbox" /> Our clients</td>
-	                            <td>04/3/2013</td>
-	                            <td>1</td>
-	                            <td>0</td>
-	                            <td>John Doe</td>
-	                        </tr>
-	                        <tr>
-	                            <td><input type="checkbox" /> Partnerships</td>
-	                            <td>04/3/2013</td>
-	                            <td>0</td>
-	                            <td>0</td>
-	                            <td>John Doe</td>
-	                        </tr>
-	                        <tr>
-	                            <td><input type="checkbox" />Jobs</td>
-	                            <td>04/3/2013</td>
-	                            <td>0</td>
-	                            <td>0</td>
-	                            <td>John Doe</td>
-	                        </tr>
+	                    	<?php 
+	                    }
+	                    ?>
 	                    </tbody>
 	                </table>
 	        </div>
@@ -394,6 +377,84 @@ class Admin_Layout_View
 		ob_end_clean();
 		return $sections;
 	}
+	/**
+	 * getSettingsContent
+	 * 
+	 * @return string
+	 */
+	public function getSettingsContent()
+	{
+		ob_start();
+		?>
+			<section class="widget">
+		        <header>
+		            <span class="icon">&#128196;</span>
+		            <hgroup>
+		                <h1>Settings</h1>
+		                <h2>Main sections</h2>
+		            </hgroup>
+		            <aside>
+		                <span>
+		                    <a href="#">&#9881;</a>
+		                    <ul class="settings-dd">
+		                        <li><label>Create section</label><input type="checkbox" /></li>
+		                        <li><label>Publish</label><input type="checkbox" checked="checked" /></li>
+		                        <li><label>Unpublish</label><input type="checkbox" /></li>
+		                        <li><label>Delete</label><input type="checkbox" /></li>
+		                    </ul>
+		                </span>
+		            </aside>
+		        </header>
+		        <div class="content">
+		            <table id="myTable" border="0" width="100">
+		                <thead>
+		                    <tr>
+		                        <th>Section title</th>
+		                        <th >Date</th>
+		                        <th>Products</th>
+		                        <th>Stock</th>
+		                        <th>Published</th>
+		                    </tr>
+		                </thead>
+		                    <tbody>
+		                    <?php 
+		                    foreach ($this->data['sections'] as $sections)
+		                    {
+		                    	?>
+		                    	<tr>
+		                            <td><input type="checkbox" /> <?php echo $sections['title']; ?></td>
+		                            <td><?php echo Tools::formatMYSQLToFront($sections['curdate']); ?></td>
+		                            <td>0</td>
+		                            <td>0</td>
+		                            <td><span class="entyphochar">
+		                            <?php 
+		                            if ($sections['published'] == 1)
+		                            {
+		                            	?>
+		                            	&#10003;
+		                            	<?php
+		                            }
+		                            else 
+		                            {
+		                            	?>
+		                            	&#128683;
+		                            	<?php
+		                            }
+		                            ?>
+		                            </span></td>
+		                        </tr>
+		                    	<?php 
+		                    }
+		                    ?>
+		                    </tbody>
+		                </table>
+		        </div>
+		    </section>
+			<?php
+			$sections = ob_get_contents();
+			ob_end_clean();
+			return $sections;
+		}
 	
 	
 	/**

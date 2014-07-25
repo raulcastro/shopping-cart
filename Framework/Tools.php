@@ -315,7 +315,7 @@ class Tools
 	 * @param unknown $date
 	 * @return string
 	 */
-    public function formatToMYSQL($date)
+    public static function formatToMYSQL($date)
     {
         if ($date)
         {
@@ -329,7 +329,7 @@ class Tools
      * Format a date from mysql ready for the front end
      * @param unknown $date
      */
-    public function formatMYSQLToFront($date)
+    public static  function formatMYSQLToFront($date)
     {
 //        if ($date)
 //        {

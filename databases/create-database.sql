@@ -70,6 +70,8 @@ CREATE TABLE sections (
     PRIMARY     KEY(section_id)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT = 1;
 
+ALTER TABLE sections ADD COLUMN published INT(1) DEFAULT 0;
+
 CREATE TABLE main_sliders (
     slider_id   INT(3) NOT NULL AUTO_INCREMENT,
     slider      VARCHAR(512) NOT NULL,

@@ -1,12 +1,12 @@
 <?php 
-require_once '../backends/general.php';
+require_once '../backends/adminGeneralBackend.php';
 require_once '../models/Admin_Layout_Model.php';
-$backend 	= new generalBackend();
+$backend 	= new adminGeneralBackend();
 $data 		= $backend->loadIndexInfo();
 require_once '../views/Admin_Layout_View.php';
 $layoutView = new Admin_Layout_View($data);
 
-$body = $layoutView->getCommonContentSection();
+$body = $layoutView->getCommonContentSection('sections');
 
 echo $layoutView->getMainPage('', 'Sections', $body);
 

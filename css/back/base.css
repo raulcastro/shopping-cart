@@ -203,6 +203,7 @@ section.content {
     box-sizing: border-box;
 }
 
+
 /**  ALERTS  **/
 
 section.alert {
@@ -466,4 +467,8 @@ button.green {
     background: -o-linear-gradient(top, #9bc747 0%,#82bd42 100%); /* Opera 11.10+ */ 
     background: -ms-linear-gradient(top, #9bc747 0%,#82bd42 100%); /* IE10+ */ 
     background: linear-gradient(to bottom, #9bc747 0%,#82bd42 100%); /* W3C */ 
+}
+
+.entyphochar {
+	font-family: entypo!important;
 }

@@ -11,6 +11,22 @@ class Admin_Layout_Model
 		$this->db = new Mysqli_Tool(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 	}
 	
+	public function getCurrentUserInfo()
+	{
+		try {
+			$query = 'SELECT u.user_id, u.user, u.type,
+					ud.name, ud.email, ud.about, ud.avatar
+					FROM users u 
+					LEFT JOIN user_detail ud ON ud.user_id = u.user_id
+					WHERE u.user_id = '.$_SESSION['userId'];
+			
+			return $this->db->getRow($query);
+			
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+	
 	/**
 	 * getGeneralAppInfo
 	 * 
