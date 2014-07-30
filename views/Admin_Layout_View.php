@@ -126,6 +126,10 @@ class Admin_Layout_View
 					case 'sections':
 						echo self::getSectionsContent();
 					break;
+					
+					case 'add-section':
+						echo self::getSectionsAdd();
+					break;
 						
 					case 'settings':
 						echo self::getSettingsContent();
@@ -235,9 +239,9 @@ class Admin_Layout_View
 		    <ul>
 		        <li><a href="dashboard.html"><span class="icon">&#59176;</span> Dashboard</a></li>
 		        <li class="section">
-		            <a href="pages-table.html"><span class="icon">&#128196;</span> Sections<span class="pip"><?php echo sizeof($this->data['sections']); ?></span></a>
+		            <a href="sections.php"><span class="icon">&#128196;</span> Sections<span class="pip"><?php echo sizeof($this->data['sections']); ?></span></a>
 		            <ul class="submenu">
-		                <li><a href="page-new.html">Create section</a></li>
+		                <li><a href="add-section.php">Create section</a></li>
 		            </ul>   
 		        </li>
 		        <li>
@@ -334,7 +338,7 @@ class Admin_Layout_View
 	                        <th>Section title</th>
 	                        <th >Date</th>
 	                        <th>Products</th>
-	                        <th>Stock</th>
+	                        <th>Categories</th>
 	                        <th>Published</th>
 	                    </tr>
 	                </thead>
@@ -377,12 +381,8 @@ class Admin_Layout_View
 		ob_end_clean();
 		return $sections;
 	}
-	/**
-	 * getSettingsContent
-	 * 
-	 * @return string
-	 */
-	public function getSettingsContent()
+	
+	public function getSectionsAdd()
 	{
 		ob_start();
 		?>
@@ -390,7 +390,7 @@ class Admin_Layout_View
 		        <header>
 		            <span class="icon">&#128196;</span>
 		            <hgroup>
-		                <h1>Settings</h1>
+		                <h1>Add a new section</h1>
 		                <h2>Main sections</h2>
 		            </hgroup>
 		            <aside>
@@ -412,7 +412,7 @@ class Admin_Layout_View
 		                        <th>Section title</th>
 		                        <th >Date</th>
 		                        <th>Products</th>
-		                        <th>Stock</th>
+		                        <th>Categories</th>
 		                        <th>Published</th>
 		                    </tr>
 		                </thead>
@@ -448,6 +448,76 @@ class Admin_Layout_View
 		                    ?>
 		                    </tbody>
 		                </table>
+		        </div>
+		    </section>
+			<?php
+			$sections = ob_get_contents();
+			ob_end_clean();
+			return $sections;
+		}
+	
+	/**
+	 * getSettingsContent
+	 * 
+	 * @return string
+	 */
+	public function getSettingsContent()
+	{
+		ob_start();
+		?>
+			<section class="widget">
+		        <header>
+		            <span class="icon">&#128196;</span>
+		            <hgroup>
+		                <h1>Settings</h1>
+		                <h2>Main sections</h2>
+		            </hgroup>
+		        </header>
+		        <div class="content">
+		            <form class="form-row settings-form">
+		            	<label>Site title</label>
+		            	<input type="text" id="siteTitle" value="<?php echo $this->data['appInfo']['title']; ?>" />
+		            	
+		            	<label>Site name</label>
+		            	<input type="text" id="siteName" value="<?php echo $this->data['appInfo']['siteName']; ?>" />
+		            	
+		            	<label>Inner content</label>
+		            	<textarea rows="" id="siteContent" cols=""><?php echo $this->data['appInfo']['content']; ?></textarea>
+		            	
+		            	<label>Description</label>
+		            	<textarea rows="" id="siteDescription" cols=""><?php echo $this->data['appInfo']['description']; ?></textarea>
+		            	
+		            	<label>Keywords</label>
+		            	<input type="text" id="siteKeywords" value="<?php echo $this->data['appInfo']['keywords']; ?>" />
+		            	
+		            	<label>Contact e-mail</label>
+		            	<input type="text" id="siteEmail" value="<?php echo $this->data['appInfo']['email']; ?>" />
+		            	
+		            	<label>Twitter</label>
+		            	<input type="text" id="siteTwitter" value="<?php echo $this->data['appInfo']['twitter']; ?>" />
+		            	
+		            	<label>Facebook</label>
+		            	<input type="text" id="siteFacebook" value="<?php echo $this->data['appInfo']['facebook']; ?>" />
+		            	
+		            	<label>Google+</label>
+		            	<input type="text" id="siteGooglePlus" value="<?php echo $this->data['appInfo']['googleplus']; ?>" />
+		            	
+		            	<label>Pinterest</label>
+		            	<input type="text" id="sitePinterest" value="<?php echo $this->data['appInfo']['pinterest']; ?>" />
+		            	
+		            	<label>Linkedin</label>
+		            	<input type="text" id="siteLinkedin" value="<?php echo $this->data['appInfo']['linkedin']; ?>" />
+		            	
+		            	<label>Lang</label>
+		            	<input type="text" id="siteLang" value="<?php echo $this->data['appInfo']['lang']; ?>" />
+		            	
+		            	<button class="blue" id="buttonSaveSattings" type="button">Save</button>
+		            	
+		            	<div class="green alertSettingsSuccess">	
+							<p>The configuration was succesfully saved</p>
+							<span class="closeAlert closeAlertSettings">&#10006;</span>
+						</div>
+		            </form>
 		        </div>
 		    </section>
 			<?php

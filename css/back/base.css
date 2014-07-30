@@ -270,6 +270,16 @@ section.alert .close, div.green .close, div.orange .close, div.red .close {
     right: 10px;
 }
 
+section.alert .closeAlert, div.green .closeAlert, div.orange .closeAlert, div.red .closeAlert {
+    font-family: "entypo";
+    position: absolute;
+    opacity: 0.3;
+    top: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    right: 10px;
+}
+
 section.alert .green, div.green {
     border: 1px solid #719e37;
     background: #9bc747; /* Old browsers */ 
@@ -471,4 +481,8 @@ button.green {
 
 .entyphochar {
 	font-family: entypo!important;
+}
+
+.alertSettingsSuccess {
+	display: none;
 }

@@ -82,4 +82,36 @@ class Admin_Layout_Model
 			return false;
 		}
 	}
+	
+	/**
+	 * updateAppInfo
+	 * 
+	 * it updates the app_info table
+	 * 
+	 * @param array $data post data
+	 * @return boolean
+	 */
+	public function updateAppInfo($data)
+	{
+		try {
+			$query = 'UPDATE app_info SET ' .
+					'title = "'.$data['siteTitle'].'", ' .
+					'site_name = "'.$data['siteName'].'", ' .
+					'content = "'.$data['siteContent'].'", ' .
+					'description = "'.$data['siteDescription'].'", ' .
+					'keywords = "'.$data['siteKeywords'].'", ' .
+					'twitter = "'.$data['siteTwitter'].'", ' .
+					'facebook = "'.$data['siteFacebook'].'", ' .
+					'googleplus = "'.$data['siteGooglePlus'].'", ' .
+					'lang = "'.$data['siteLang'].'", ' .
+					'pinterest = "'.$data['sitePinterest'].'", ' .
+					'linkedin = "'.$data['siteLinkedin'].'", ' .
+					'email = "'.$data['siteEmail'].'" ';
+			
+			return $this->db->run($query);
+			
+		} catch (Exception $e) {
+			return false;
+		}
+	}
 }

@@ -419,7 +419,7 @@ class Layout_View
 						</div>
 						<hr>
 						<div class="title">
-							<h3><a href="#">Reshape Panties</a></h3>
+							<h3><a href="#">new product</a></h3>
 							<p>by Jack &amp; Jones</p>
 						</div>
 					</div>
@@ -431,7 +431,7 @@ class Layout_View
 						</div>
 						<hr>
 						<div class="title">
-							<h3><a href="#">Reshape Panties</a></h3>
+							<h3><a href="#">new product</a></h3>
 							<p>by Jack &amp; Jones</p>
 						</div>
 					</div>
@@ -443,7 +443,7 @@ class Layout_View
 						</div>
 						<hr>
 						<div class="title">
-							<h3><a href="#">Reshape Panties</a></h3>
+							<h3><a href="#">new product</a></h3>
 							<p>by Jack &amp; Jones</p>
 						</div>
 					</div>
@@ -455,7 +455,7 @@ class Layout_View
 						</div>
 						<hr>
 						<div class="title">
-							<h3><a href="#">Reshape Panties</a></h3>
+							<h3><a href="#">new product</a></h3>
 							<p>by Jack &amp; Jones</p>
 						</div>
 					</div>
@@ -467,7 +467,19 @@ class Layout_View
 						</div>
 						<hr>
 						<div class="title">
-							<h3><a href="#">Reshape Panties</a></h3>
+							<h3><a href="#">new product</a></h3>
+							<p>by Jack &amp; Jones</p>
+						</div>
+					</div>
+				</div>
+				<div>
+					<div class="product">
+						<div class="thumbnail">
+							<a href="#"><img src="images-app/sale-5.jpg" alt=""></a>
+						</div>
+						<hr>
+						<div class="title">
+							<h3><a href="#">new product</a></h3>
 							<p>by Jack &amp; Jones</p>
 						</div>
 					</div>
@@ -510,7 +522,7 @@ class Layout_View
 					</div>
 					<hr>
 					<div class="title">
-						<h3><a href="#">Reshape Panties</a></h3>
+						<h3><a href="#">new product</a></h3>
 						<p>by Jack &amp; Jones</p>
 					</div>
 					<span class="price">$18</span>
@@ -530,7 +542,7 @@ class Layout_View
 					</div>
 					<hr>
 					<div class="title">
-						<h3><a href="#">Reshape Panties</a></h3>
+						<h3><a href="#">new product</a></h3>
 						<p>by Jack &amp; Jones</p>
 					</div>
 					<span class="price">$18</span>
@@ -550,7 +562,7 @@ class Layout_View
 					</div>
 					<hr>
 					<div class="title">
-						<h3><a href="#">Reshape Panties</a></h3>
+						<h3><a href="#">new product</a></h3>
 						<p>by Jack &amp; Jones</p>
 					</div>
 					<span class="price">$18</span>
@@ -570,7 +582,7 @@ class Layout_View
 					</div>
 					<hr>
 					<div class="title">
-						<h3><a href="#">Reshape Panties</a></h3>
+						<h3><a href="#">new product</a></h3>
 						<p>by Jack &amp; Jones</p>
 					</div>
 					<span class="price">$18</span>
@@ -818,21 +830,21 @@ class Layout_View
 					<li>
 						<a href="http://coffeecreamthemes.com/themes/perfekta/wordpress/s/flying-ninja/">
 							<img alt="" src="http://placehold.it/60x60">
-							Reshape Panties
+							new product
 						</a>
 						<span class="quantity">1 × <span class="amount">$12.00</span></span>
 					</li>
 					<li>
 						<a href="http://coffeecreamthemes.com/themes/perfekta/wordpress/s/flying-ninja/">
 							<img alt="" src="http://placehold.it/60x60">
-							Reshape Panties
+							new product
 						</a>
 						<span class="quantity">1 × <span class="amount">$12.00</span></span>
 					</li>
 					<li>
 						<a href="http://coffeecreamthemes.com/themes/perfekta/wordpress/s/flying-ninja/">
 							<img alt="" src="http://placehold.it/60x60">
-							Reshape Panties
+							new product
 						</a>
 						<span class="quantity">1 × <span class="amount">$12.00</span></span>
 					</li>

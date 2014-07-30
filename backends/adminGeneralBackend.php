@@ -49,7 +49,8 @@ class adminGeneralBackend
 				'googleplus' 	=> $appInfoRow['googleplus'],
 				'pinterest' 	=> $appInfoRow['pinterest'],
 				'linkedin' 		=> $appInfoRow['linkedin'],
-				'lang'			=> $appInfoRow['lang']
+				'lang'			=> $appInfoRow['lang'],
+				'email'			=> $appInfoRow['email']
 				
 		);
 		
