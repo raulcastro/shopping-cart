@@ -133,6 +133,10 @@ class Admin_Layout_View
 					case 'settings':
 						echo self::getSettingsContent();
 					break;
+					
+					case 'update-section':
+						echo self::getSectionsUpdate();
+					break;
 				}
 			?>
 		
@@ -347,7 +351,7 @@ class Admin_Layout_View
                     	?>
                     	<tr id="sectionRow<?php echo $sections['section_id']; ?>">
                             <td><input type="checkbox" sectionId="<?php echo $sections['section_id']; ?>" /> 
-                            	<a href="editSection?sectionId=<?php echo $sections['section_id']; ?>">
+                            	<a href="update-section.php?sectionId=<?php echo $sections['section_id']; ?>">
                             		<?php echo $sections['title']; ?>
                             	</a>
                             </td>
@@ -443,25 +447,26 @@ class Admin_Layout_View
 	        <header>
 	            <span class="icon">&#128196;</span>
 	            <hgroup>
-	                <h1>Add a new section</h1>
+	                <h1>Update <?php echo $this->data['currentSection']['title']; ?></h1>
 	                <h2>Main sections</h2>
 	            </hgroup>
 	        </header>
-	        <div class="content sections-add-form">
+	        <div class="content sections-update-form">
+	        	<input type="hidden" id="currentSectionId" value="<?php echo $this->data['currentSection']['section_id']; ?>" />
 	        	<div class="field-wrap">
-					<input type="text" value="Title" id="sectionTitle" />
+					<input type="text" value="<?php echo $this->data['currentSection']['title']; ?>" id="sectionTitle" />
 				</div>
 				<div class="field-wrap">
-					<textarea rows="" cols="" id="sectionDescription">Description</textarea>
+					<textarea rows="" cols="" id="sectionDescription"><?php echo $this->data['currentSection']['description']; ?></textarea>
 				</div>
 				<div class="field-wrap">
-					<input type="text" value="Keywords" id="sectionKeywords" />
+					<input type="text" value="<?php echo $this->data['currentSection']['keywords']; ?>" id="sectionKeywords" />
 				</div>
 				
-				<button class="blue" id="buttonAddSection" type="button">Save</button>
+				<button class="blue" id="buttonUpdateSection" type="button">Update</button>
 	            	
-            	<div class="green alertAddSectionSuccess">	
-					<p>The section succesfully added</p>
+            	<div class="green alertUpdateSectionSuccess">	
+					<p>The section was succesfully updated</p>
 					<span class="closeAlert">&#10006;</span>
 				</div>
 	        </div>

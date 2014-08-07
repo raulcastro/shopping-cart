@@ -16,6 +16,10 @@ $( function() {
 			});
 		}
 	});
+	
+	$('#buttonUpdateSection').click(function(){
+		updateSection();
+	});
 });
 
 function manageSection(act, sectionId)
@@ -134,6 +138,36 @@ function addSection()
             {
             	if (xml == '1') {
             		$('.alertAddSectionSuccess').fadeIn('slow');
+            	} else {
+            		
+            	}
+            }
+        }); 
+}
+
+function updateSection()
+{
+	currentSectionId = $('#currentSectionId').val();
+	
+	sectionTitle 		= $('#sectionTitle').val();
+	sectionDescription 	= $('#sectionDescription').val();
+	sectionKeywords 	= $('#sectionKeywords').val();
+	
+	$.ajax({
+        type: "POST",
+        url: "/ajax/back/sections.php",
+        data: {
+        	act					: 'update',
+        	currentSectionId	: currentSectionId,
+        	sectionTitle 		: sectionTitle,
+        	sectionDescription 	: sectionDescription,
+        	sectionKeywords 	: sectionKeywords,
+        },
+        success:
+            function(xml)
+            {
+            	if (xml == '1') {
+            		$('.alertUpdateSectionSuccess').fadeIn('slow');
             	} else {
             		
             	}

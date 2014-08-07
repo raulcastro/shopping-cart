@@ -47,15 +47,15 @@ switch ($_POST['act'])
 		}
 	break;
 		
-// 	case 'create':
-// 	if ($model->addSection($_POST))
-// 	{
-// 		echo 1;
-// 	}
-// 	else {
-// 		echo 0;
-// 	}
-// 	break;
+	case 'update':
+	if ($model->updateSectionById($_POST))
+	{
+		echo 1;
+	}
+	else {
+		echo 0;
+	}
+	break;
 }
 
 

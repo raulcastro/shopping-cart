@@ -1491,6 +1491,7 @@ display: block;
 }
 
 .alertSettingsSuccess,
-.alertAddSectionSuccess {
+.alertAddSectionSuccess,
+.alertUpdateSectionSuccess {
     display: none;
 }

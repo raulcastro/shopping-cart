@@ -70,6 +70,13 @@ class adminGeneralBackend
 		
 		return $data;
 	}
+	
+	public function getCurrentSection($sectionId)
+	{
+		$currentSection = array();
+		
+		return $currentSection['currentSection'] = $this->model->getSectionById($sectionId);
+	}
 }
 
 // $backend = new generalBackend();

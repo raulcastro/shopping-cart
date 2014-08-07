@@ -84,6 +84,26 @@ class Admin_Layout_Model
 	}
 	
 	/**
+	 * getSectionById
+	 * 
+	 * returns all the info of a section by the given id
+	 * 
+	 * @param int $sectionId
+	 * @return multitype:|boolean
+	 */
+	public function getSectionById($sectionId)
+	{
+		try {
+			$sectionId = (int) $sectionId;
+			$query = 'SELECT * FROM sections WHERE section_id = '.$sectionId;
+			return $this->db->getRow($query);
+	
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+	
+	/**
 	 * addSection
 	 * 
 	 * query for add a new section, it add it as no published 0 and with the
@@ -100,6 +120,29 @@ class Admin_Layout_Model
 							 "'.$data['sectionDescription'].'",
 							 "'.$data['sectionKeywords'].'") ';
 			
+			return $this->db->run($query);
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+	
+	/**
+	 * updateSectionById
+	 *
+	 * this updates the info of a section by the given Id
+	 *
+	 * @param array $data
+	 * @return boolean true on success, false othercase
+	 */
+	public function updateSectionById($data)
+	{
+		try {
+			$query = 'UPDATE sections SET 
+					title = "'.$data['sectionTitle'].'",  
+					description = "'.$data['sectionDescription'].'",  
+					keywords = "'.$data['sectionKeywords'].'" 
+					WHERE section_id = '.$data['currentSectionId'];
+				
 			return $this->db->run($query);
 		} catch (Exception $e) {
 			return false;
