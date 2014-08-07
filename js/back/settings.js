@@ -2,10 +2,6 @@ $( function() {
 	$('#buttonSaveSattings').click(function(){
 		saveSettings();
 	});
-
-	$('.closeAlertSettings').click(function(){
-		$('.alertSettingsSuccess').fadeOut('slow');
-	});
 });
 
 function saveSettings()

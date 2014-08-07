@@ -84,6 +84,94 @@ class Admin_Layout_Model
 	}
 	
 	/**
+	 * addSection
+	 * 
+	 * query for add a new section, it add it as no published 0 and with the
+	 * current timestamp
+	 * 
+	 * @param array $data
+	 * @return boolean true on success, false othercase
+	 */
+	public function addSection($data)
+	{
+		try {
+			$query = 'INSERT INTO sections(title, description, keywords) 
+					VALUES("'.$data['sectionTitle'].'",
+							 "'.$data['sectionDescription'].'",
+							 "'.$data['sectionKeywords'].'") ';
+			
+			return $this->db->run($query);
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+	
+	/**
+	 * publishSection
+	 *  
+	 * set published as 1 on the section table
+	 * 
+	 * @param array $data array with the values from POST
+	 * @return Ambigous <boolean, mixed>|boolean
+	 */
+	
+	public function publishSection($data)
+	{
+		try {
+			$query = 'UPDATE sections 
+					SET published = 1 
+					WHERE section_id = '.$data['sectionId'];
+			
+			return $this->db->run($query);
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+	
+	/**
+	 * unpublishSection
+	 *
+	 * set published as 0 on the section table
+	 *
+	 * @param array $data array with the values from POST
+	 * @return Ambigous <boolean, mixed>|boolean
+	 */
+	
+	public function unpublishSection($data)
+	{
+		try {
+			$query = 'UPDATE sections
+					SET published = 0
+					WHERE section_id = '.$data['sectionId'];
+				
+			return $this->db->run($query);
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+	
+	/**
+	 * deleteSection
+	 *
+	 * delete a row from the sections table by the id given
+	 *
+	 * @param array $data array with the values from POST
+	 * @return Ambigous <boolean, mixed>|boolean
+	 */
+	
+	public function deleteSection($data)
+	{
+		try {
+			$query = 'DELETE FROM sections
+					WHERE section_id = '.$data['sectionId'];
+	
+			return $this->db->run($query);
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+	
+	/**
 	 * updateAppInfo
 	 * 
 	 * it updates the app_info table

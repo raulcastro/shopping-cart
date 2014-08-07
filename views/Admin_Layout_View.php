@@ -97,7 +97,6 @@ class Admin_Layout_View
 			<script src="/js/back/flot.resize.js"></script>
 			<script src="/js/back/flot-graphs.js"></script>
 			<script src="/js/back/flot-time.js"></script>
-			<script src="/js/back/cycle.js"></script>
 			<script src="/js/back/jquery.tablesorter.min.js"></script>
 			<?php 
 			$generalScripts = ob_get_contents();
@@ -322,11 +321,10 @@ class Admin_Layout_View
 	            <aside>
 	                <span>
 	                    <a href="#">&#9881;</a>
-	                    <ul class="settings-dd">
-	                        <li><label>Create section</label><input type="checkbox" /></li>
-	                        <li><label>Publish</label><input type="checkbox" checked="checked" /></li>
-	                        <li><label>Unpublish</label><input type="checkbox" /></li>
-	                        <li><label>Delete</label><input type="checkbox" /></li>
+	                    <ul class="settings-dd sections-manage">
+	                        <li><label>Publish</label><input type="checkbox" id="publishSection" act="publishSection" /></li>
+	                        <li><label>Unpublish</label><input type="checkbox" act="unpublishSection" /></li>
+	                        <li><label>Delete</label><input type="checkbox" act="deleteSection" /></li>
 	                    </ul>
 	                </span>
 	            </aside>
@@ -336,44 +334,48 @@ class Admin_Layout_View
 	                <thead>
 	                    <tr>
 	                        <th>Section title</th>
-	                        <th >Date</th>
+	                        <th>Date</th>
 	                        <th>Products</th>
 	                        <th>Categories</th>
 	                        <th>Published</th>
 	                    </tr>
 	                </thead>
-	                    <tbody>
-	                    <?php 
-	                    foreach ($this->data['sections'] as $sections)
-	                    {
-	                    	?>
-	                    	<tr>
-	                            <td><input type="checkbox" /> <?php echo $sections['title']; ?></td>
-	                            <td><?php echo Tools::formatMYSQLToFront($sections['curdate']); ?></td>
-	                            <td>0</td>
-	                            <td>0</td>
-	                            <td><span class="entyphochar">
-	                            <?php 
-	                            if ($sections['published'] == 1)
-	                            {
-	                            	?>
-	                            	&#10003;
-	                            	<?php
-	                            }
-	                            else 
-	                            {
-	                            	?>
-	                            	&#128683;
-	                            	<?php
-	                            }
-	                            ?>
-	                            </span></td>
-	                        </tr>
-	                    	<?php 
-	                    }
-	                    ?>
-	                    </tbody>
-	                </table>
+                    <tbody id="sectionsList">
+                    <?php 
+                    foreach ($this->data['sections'] as $sections)
+                    {
+                    	?>
+                    	<tr id="sectionRow<?php echo $sections['section_id']; ?>">
+                            <td><input type="checkbox" sectionId="<?php echo $sections['section_id']; ?>" /> 
+                            	<a href="editSection?sectionId=<?php echo $sections['section_id']; ?>">
+                            		<?php echo $sections['title']; ?>
+                            	</a>
+                            </td>
+                            <td><?php echo Tools::formatMYSQLToFront($sections['curdate']); ?></td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td><span class="entyphochar" id="sectionIcon<?php echo $sections['section_id']; ?>">
+                            <?php 
+                            if ($sections['published'] == 1)
+                            {
+                            	?>
+                            	&#10003;
+                            	<?php
+                            }
+                            else 
+                            {
+                            	?>
+                            	&#128683;
+                            	<?php
+                            }
+                            ?>
+                            </span></td>
+                        </tr>
+                    	<?php 
+                    }
+                    ?>
+                    </tbody>
+                </table>
 	        </div>
 	    </section>
 		<?php
@@ -382,79 +384,93 @@ class Admin_Layout_View
 		return $sections;
 	}
 	
+	/**
+	 * getSectionsAdd
+	 *
+	 * add a new section
+	 *
+	 * @return string HTML
+	 */
 	public function getSectionsAdd()
 	{
 		ob_start();
 		?>
-			<section class="widget">
-		        <header>
-		            <span class="icon">&#128196;</span>
-		            <hgroup>
-		                <h1>Add a new section</h1>
-		                <h2>Main sections</h2>
-		            </hgroup>
-		            <aside>
-		                <span>
-		                    <a href="#">&#9881;</a>
-		                    <ul class="settings-dd">
-		                        <li><label>Create section</label><input type="checkbox" /></li>
-		                        <li><label>Publish</label><input type="checkbox" checked="checked" /></li>
-		                        <li><label>Unpublish</label><input type="checkbox" /></li>
-		                        <li><label>Delete</label><input type="checkbox" /></li>
-		                    </ul>
-		                </span>
-		            </aside>
-		        </header>
-		        <div class="content">
-		            <table id="myTable" border="0" width="100">
-		                <thead>
-		                    <tr>
-		                        <th>Section title</th>
-		                        <th >Date</th>
-		                        <th>Products</th>
-		                        <th>Categories</th>
-		                        <th>Published</th>
-		                    </tr>
-		                </thead>
-		                    <tbody>
-		                    <?php 
-		                    foreach ($this->data['sections'] as $sections)
-		                    {
-		                    	?>
-		                    	<tr>
-		                            <td><input type="checkbox" /> <?php echo $sections['title']; ?></td>
-		                            <td><?php echo Tools::formatMYSQLToFront($sections['curdate']); ?></td>
-		                            <td>0</td>
-		                            <td>0</td>
-		                            <td><span class="entyphochar">
-		                            <?php 
-		                            if ($sections['published'] == 1)
-		                            {
-		                            	?>
-		                            	&#10003;
-		                            	<?php
-		                            }
-		                            else 
-		                            {
-		                            	?>
-		                            	&#128683;
-		                            	<?php
-		                            }
-		                            ?>
-		                            </span></td>
-		                        </tr>
-		                    	<?php 
-		                    }
-		                    ?>
-		                    </tbody>
-		                </table>
-		        </div>
-		    </section>
-			<?php
-			$sections = ob_get_contents();
-			ob_end_clean();
-			return $sections;
-		}
+		<section class="widget">
+	        <header>
+	            <span class="icon">&#128196;</span>
+	            <hgroup>
+	                <h1>Add a new section</h1>
+	                <h2>Main sections</h2>
+	            </hgroup>
+	        </header>
+	        <div class="content sections-add-form">
+	        	<div class="field-wrap">
+					<input type="text" value="Title" id="sectionTitle" />
+				</div>
+				<div class="field-wrap">
+					<textarea rows="" cols="" id="sectionDescription">Description</textarea>
+				</div>
+				<div class="field-wrap">
+					<input type="text" value="Keywords" id="sectionKeywords" />
+				</div>
+				
+				<button class="blue" id="buttonAddSection" type="button">Save</button>
+	            	
+            	<div class="green alertAddSectionSuccess">	
+					<p>The section succesfully added</p>
+					<span class="closeAlert">&#10006;</span>
+				</div>
+	        </div>
+	    </section>
+		<?php
+		$sections = ob_get_contents();
+		ob_end_clean();
+		return $sections;
+	}
+	
+	/**
+	 * getSectionsUpdate
+	 *
+	 * update a new section view
+	 *
+	 * @return string HTML
+	 */
+	public function getSectionsUpdate()
+	{
+		ob_start();
+		?>
+		<section class="widget">
+	        <header>
+	            <span class="icon">&#128196;</span>
+	            <hgroup>
+	                <h1>Add a new section</h1>
+	                <h2>Main sections</h2>
+	            </hgroup>
+	        </header>
+	        <div class="content sections-add-form">
+	        	<div class="field-wrap">
+					<input type="text" value="Title" id="sectionTitle" />
+				</div>
+				<div class="field-wrap">
+					<textarea rows="" cols="" id="sectionDescription">Description</textarea>
+				</div>
+				<div class="field-wrap">
+					<input type="text" value="Keywords" id="sectionKeywords" />
+				</div>
+				
+				<button class="blue" id="buttonAddSection" type="button">Save</button>
+	            	
+            	<div class="green alertAddSectionSuccess">	
+					<p>The section succesfully added</p>
+					<span class="closeAlert">&#10006;</span>
+				</div>
+	        </div>
+	    </section>
+		<?php
+		$sections = ob_get_contents();
+		ob_end_clean();
+		return $sections;
+	}
 	
 	/**
 	 * getSettingsContent
@@ -515,7 +531,7 @@ class Admin_Layout_View
 		            	
 		            	<div class="green alertSettingsSuccess">	
 							<p>The configuration was succesfully saved</p>
-							<span class="closeAlert closeAlertSettings">&#10006;</span>
+							<span class="closeAlert">&#10006;</span>
 						</div>
 		            </form>
 		        </div>

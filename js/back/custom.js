@@ -57,9 +57,9 @@ $(document).ready(function() {
 	});	
 	
 	// Hide alert
-	$(".close").click(function(){
-		$(this).parent().parent().fadeOut(500);
-		$(".content").delay(300).animate({"marginTop" : 0});
+	$(".closeAlert").click(function(){
+		$(this).parent().fadeOut(500);
+		//$(".content").delay(300).animate({"marginTop" : 0});
 	});
 	
 	// Navigation accordion menu

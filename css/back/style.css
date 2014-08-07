@@ -538,7 +538,6 @@ ul.settings-dd {
     min-width: 150px;
     z-index: 500;
     display: none;
-    
     border-radius: 5px 0 5px 5px;
     -webkit-border-radius: 5px 0 5px 5px;
     -moz-border-radius: 5px 0 5px 5px; 
@@ -952,7 +951,7 @@ body.login {
     height: 30px;
 }
 .jquery-checkbox img{
-    background: transparent url(../images/checkbox.png) no-repeat;
+    background: transparent url(/images/checkbox.png) no-repeat;
 }
 
 .jquery-checkbox img{
@@ -1489,4 +1488,9 @@ display: block;
 -webkit-margin-after: 0.17em;
 -webkit-margin-start: 0px;
 -webkit-margin-end: 0px;
+}
+
+.alertSettingsSuccess,
+.alertAddSectionSuccess {
+    display: none;
 }

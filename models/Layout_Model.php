@@ -59,7 +59,7 @@ class Layout_Model
 	public function getMainSections()
 	{
 		try {
-			$query = 'SELECT * FROM sections';
+			$query = 'SELECT * FROM sections WHERE published = 1';
 			return $this->db->getArray($query);
 				
 		} catch (Exception $e) {
