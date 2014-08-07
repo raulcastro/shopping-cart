@@ -6,6 +6,9 @@ $data 		= $backend->loadIndexInfo();
 if ($_GET['sectionId'] > 0) {
 	$currentSection = $backend->getCurrentSection($_GET['sectionId']);
 	$data['currentSection'] = $currentSection;
+	
+	$currentSectionCategories = $backend->getCurrentSectionCategories($_GET['sectionId']);
+	$data['currentSectionCategories'] = $currentSectionCategories;
 }
 require_once '../views/Admin_Layout_View.php';
 $layoutView = new Admin_Layout_View($data);

@@ -11,7 +11,7 @@ require_once($root.'/Framework/Mysqli_Tool.php');
 
 $db =  new Mysqli_Tool(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
-$typesPages = array(1=>"sections.php");
+$typesPages = array(1=>"sections/");
 
 $control = new sessionControl($db,
 		'users',

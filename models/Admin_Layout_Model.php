@@ -215,6 +215,97 @@ class Admin_Layout_Model
 	}
 	
 	/**
+	 * addCategory
+	 *
+	 * query for add a new category, it is linked to a section
+	 * current timestamp
+	 *
+	 * @param array $data
+	 * @return boolean true on success, false othercase
+	 */
+	public function addCategory($data)
+	{
+		try {
+			$query = 'INSERT INTO categories(section_id, title, description, keywords)
+					VALUES("'.$data['currentSectionId'].'",
+					 "'.$data['categoryTitle'].'",
+					 "'.$data['categoryDescription'].'",
+					 "'.$data['categoryKeywords'].'") ';
+				
+			if ($this->db->run($query))
+			{
+				$query = 'SELECT MAX(category_id) FROM categories';
+				return $this->db->getValue($query);
+			}
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+	
+	/**
+	 * updateCategoryById
+	 *
+	 * query for update a category row by an given category_id
+	 *
+	 * @param array $data
+	 * @return boolean true on success, false othercase
+	 */
+	public function updateCategoryById($data)
+	{
+		try {
+			$query = 'UPDATE categories 
+					SET title = "'.$data['categoryTitle'].'", 
+					description = "'.$data['categoryDescription'].'", 
+					keywords = "'.$data['categoryKeywords'].'" 
+					WHERE category_id = '.$data['currentCategoryId'];
+
+			return $this->db->run($query);
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+	
+	/**
+	 * deleteCategoryById
+	 *
+	 * query for delete a category row by an given category_id
+	 *
+	 * @param array $data
+	 * @return boolean true on success, false othercase
+	 */
+	public function deleteCategoryById($data)
+	{
+		try {
+			$query = 'DELETE FROM categories
+					WHERE category_id = '.$data['currentCategoryId'];
+	
+			return $this->db->run($query);
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+	
+	/**
+	 * getCategoriesBySectionId
+	 *
+	 * returns an array with all the categories linked to a given section id 
+	 *
+	 * @param array $data
+	 * @return boolean true on success, false othercase
+	 */
+	public function getCategoriesBySectionId($sectionId)
+	{
+		try {
+			$query = 'SELECT * FROM categories 
+					WHERE section_id = '.$sectionId;
+	
+			return $this->db->getArray($query);
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+	
+	/**
 	 * updateAppInfo
 	 * 
 	 * it updates the app_info table

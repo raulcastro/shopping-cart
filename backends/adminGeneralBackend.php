@@ -77,6 +77,13 @@ class adminGeneralBackend
 		
 		return $currentSection['currentSection'] = $this->model->getSectionById($sectionId);
 	}
+	
+	public function getCurrentSectionCategories($sectionId)
+	{
+		$currentSectionCategories = array();
+	
+		return $currentSectionCategories['currentSectionCategories'] = $this->model->getCategoriesBySectionId($sectionId);
+	}
 }
 
 // $backend = new generalBackend();

@@ -69,6 +69,8 @@ class Admin_Layout_View
 		ob_start();
 		?>
 			<link rel="stylesheet" href="/css/back/style.css" media="all" />
+			<link rel="stylesheet" href="/css/back/jquery-ui.css" />
+			<link rel="stylesheet" href="/css/back/ui.css" />
 		<?php 
 		$generalCSS = ob_get_contents();
 		ob_end_clean();
@@ -88,6 +90,7 @@ class Admin_Layout_View
 			ob_start();
 			?>
 			<script src="/js/jquery-1.6.1.min.js"></script>
+			<script src="/js/jquery-ui.js"></script>
 			<script src="/js/back/scripts.js"></script>
 			<script src="/js/back/jquery.wysiwyg.js"></script>
 			<script src="/js/back/custom.js"></script>
@@ -242,23 +245,23 @@ class Admin_Layout_View
 		    <ul>
 		        <li><a href="dashboard.html"><span class="icon">&#59176;</span> Dashboard</a></li>
 		        <li class="section">
-		            <a href="sections.php"><span class="icon">&#128196;</span> Sections<span class="pip"><?php echo sizeof($this->data['sections']); ?></span></a>
+		            <a href="/admin/sections/"><span class="icon">&#128196;</span> Sections<span class="pip"><?php echo sizeof($this->data['sections']); ?></span></a>
 		            <ul class="submenu">
-		                <li><a href="add-section.php">Create section</a></li>
+		                <li><a href="/admin/add-section/">Create section</a></li>
 		            </ul>   
-		        </li>
-		        <li>
-		            <a href="files.html"><span class="icon">&#127748;</span> Sliders <span class="pip"><?php echo sizeof($this->data['mainSliders']); ?></span></a>
-		            <ul class="submenu">
-		                <li><a href="files-upload.html">New slider</a></li>
-		                <li><a href="files.html">View sliders</a></li>
-		            </ul>
 		        </li>
 		        <li>
 		            <a href="blog-timeline.html"><span class="icon">&#59160;</span> Produtcs <span class="pip">12</span></a>
 		            <ul class="submenu">
 		                <li><a href="blog-new.html">New product</a></li>
 		                <li><a href="blog-table.html">All products</a></li>
+		            </ul>
+		        </li>
+		        <li>
+		            <a href="files.html"><span class="icon">&#127748;</span> Sliders <span class="pip"><?php echo sizeof($this->data['mainSliders']); ?></span></a>
+		            <ul class="submenu">
+		                <li><a href="files-upload.html">New slider</a></li>
+		                <li><a href="files.html">View sliders</a></li>
 		            </ul>
 		        </li>
 		        <li>
@@ -272,7 +275,7 @@ class Admin_Layout_View
 		        <li><a href="statistics.html"><span class="icon">&#128202;</span> Statistics</a></li>
 		        <li><a href="users.html"><span class="icon">&#128101;</span> Users <span class="pip">3</span></a></li>
 		        <li>
-		            <a href="settings.php"><span class="icon">&#9881;</span> Settings</a>
+		            <a href="/admin/settings/"><span class="icon">&#9881;</span> Settings</a>
 		        </li>
 		    </ul>
 		</nav>
@@ -351,7 +354,7 @@ class Admin_Layout_View
                     	?>
                     	<tr id="sectionRow<?php echo $sections['section_id']; ?>">
                             <td><input type="checkbox" sectionId="<?php echo $sections['section_id']; ?>" /> 
-                            	<a href="update-section.php?sectionId=<?php echo $sections['section_id']; ?>">
+                            	<a href="/admin/update-section/<?php echo $sections['section_id']; ?>/">
                             		<?php echo $sections['title']; ?>
                             	</a>
                             </td>
@@ -471,6 +474,81 @@ class Admin_Layout_View
 				</div>
 	        </div>
 	    </section>
+	    
+	    <section class="widget">
+	        <header>
+	            <span class="icon">&#9776;</span>
+	            <hgroup>
+	                <h1>Add categories </h1>
+	                <h2><?php echo $this->data['currentSection']['title']; ?></h2>
+	            </hgroup>
+	        </header>
+	        <div class="content categories-add-form">
+	        	<div class="field-wrap">
+					<input type="text" value="Title" id="categoryTitle" />
+				</div>
+				<div class="field-wrap">
+					<textarea rows="" cols="" id="categoryDescription">Description</textarea>
+				</div>
+				<div class="field-wrap">
+					<input type="text" value="Keywords" id="categoryKeywords" />
+				</div>
+				
+				<button class="blue" id="buttonAddCategory" type="button">Add category</button>
+	            	
+            	<div class="green alertAddCategorySuccess">	
+					<p>The category was succesfully added</p>
+					<span class="closeAlert">&#10006;</span>
+				</div>
+	        </div>
+	    </section>
+	    <div class="widget-container">
+			<section class="widget">
+				<header>
+					<span class="icon">&#9776;</span>
+					<hgroup>
+						<h1>Categories</h1>
+						<h2><?php echo $this->data['currentSection']['title']; ?></h2>
+					</hgroup>
+				</header>
+				<div class="content">
+					<div id="accordion">
+						<?php 
+						if ($this->data['currentSectionCategories'])
+						{
+							foreach ($this->data['currentSectionCategories'] as $category) {
+								?>
+						<h3 id="titleCategoryAccordion<?php echo $category['category_id']; ?>"><?php echo $category['title']; ?></h3>
+						  <div>
+						    <div class="content categories-update-form">
+						    	<input type="hidden" value="<?php echo $category['category_id']; ?>" class="categoryId" />
+					        	<div class="field-wrap">
+									<input type="text" value="<?php echo $category['title']; ?>" class="categoryTitle" />
+								</div>
+								<div class="field-wrap">
+									<textarea rows="" cols="" class="categoryDescription"><?php echo $category['description']; ?></textarea>
+								</div>
+								<div class="field-wrap">
+									<input type="text" value="<?php echo $category['keywords']; ?>" class="categoryKeywords" />
+								</div>
+								
+								<button class="blue buttonUpdateCategory" type="button">Update</button>
+					            	
+					            <button class="red buttonDeleteCategory" type="button">Delete</button>
+					            
+				            	<div class="green alertUpdateCategorySuccess">	
+									<p>The category was succesfully updated</p>
+									<span class="closeAlert">&#10006;</span>
+								</div>
+					        </div>
+						  </div>
+								<?php 
+							}
+						}
+						?>
+					</div>
+			</section>
+		</div>
 		<?php
 		$sections = ob_get_contents();
 		ob_end_clean();
