@@ -102,3 +102,21 @@ CREATE TABLE subcategories (
     curdate     TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     PRIMARY     KEY(category_id)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT = 1;
+
+CREATE TABLE products (
+    product_id          INT(3) NOT NULL AUTO_INCREMENT,
+    name                VARCHAR(512) NOT NULL,
+    description         TEXT NULL,
+    small_description   VARCHAR(512) NULL,
+    price               DECIMAL(4,2) NOT NULL DEFAULT 0,
+    keywords            VARCHAR(512) NULL,
+    stock               INT(3) NOT NULL DEFAULT 1,
+    brand               VARCHAR(256) NULL,
+    PRIMARY KEY(product_id)
+) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT = 1;
+
+CREATE TABLE products_relation (
+    product_id INT(3) NOT NULL,
+    section_id INT(3) NOT NULL,
+    category_id INT(3) NULL
+) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT = 1;

@@ -336,4 +336,68 @@ class Admin_Layout_Model
 			return false;
 		}
 	}
+	/**
+	 * addProduct
+	 * 
+	 * Query for add a new product
+	 * 
+	 * @param array $data POST array with the info of the products
+	 * @return boolean/int false on failed, last product_id on success
+	 */
+	
+	public function addProduct($data)
+	{
+		try {
+			$query = 'INSERT INTO products(
+					name, 
+					description, 
+					small_description, 
+					price, 
+					keywords, 
+					stock, 
+					brand
+					) 
+					VALUES(
+					"'.$data['productTitle'].'", 
+					"'.$data['productDescription'].'", 
+					"'.$data['productSmallDescription'].'", 
+					'.$data['productPrice'].', 
+					"'.$data['productKeywords'].'", 
+					'.$data['productStock'].', 
+					"'.$data['productBrand'].'")';
+
+			if ($this->db->run($query))
+			{
+				$query = 'SELECT MAX(product_id) FROM products';
+				return $this->db->getValue($query);
+			}
+			
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+	
+	/**
+	 * createRelations
+	 * 
+	 * Query for create the relations among products, sections and categories
+	 * it can be product_id, section_id, NULL or category_id
+	 * 
+	 * @param array $data POST 
+	 * @return Ambigous <boolean, mixed>|boolean
+	 */
+	public function createRelations($data) {
+		try {
+			$query = 'INSERT INTO products_relation(product_id, 
+					section_id, 
+					category_id) 
+					VALUES('.$data['lastProduct'].', 
+					'.$data['sectionId'].', 
+					'.$data['categoryId'].')';
+			
+			return $this->db->run($query);
+		} catch (Exception $e) {
+			return false;
+		}
+	}
 }

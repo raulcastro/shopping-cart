@@ -21,6 +21,7 @@ RewriteRule ^admin/sections/$ /admin/sections.php
 RewriteRule ^admin/add-section/$ /admin/add-section.php
 RewriteRule ^admin/update-section/([0-9]+)/ /admin/update-section.php?sectionId=$1
 RewriteRule ^admin/settings/    /admin/settings.php
+RewriteRule ^admin/add-product/ /admin/add-product.php
 
 RewriteRule ^sitemap.xml$ sitemap.xml
 RewriteRule ^osengine/menu.php$ osengine/menu.php

@@ -140,6 +140,10 @@ class Admin_Layout_View
 					case 'update-section':
 						echo self::getSectionsUpdate();
 					break;
+					
+					case 'add-product':
+						echo self::getAddProduct();
+					break;
 				}
 			?>
 		
@@ -253,7 +257,7 @@ class Admin_Layout_View
 		        <li>
 		            <a href="blog-timeline.html"><span class="icon">&#59160;</span> Produtcs <span class="pip">12</span></a>
 		            <ul class="submenu">
-		                <li><a href="blog-new.html">New product</a></li>
+		                <li><a href="/admin/add-product/">New product</a></li>
 		                <li><a href="blog-table.html">All products</a></li>
 		            </ul>
 		        </li>
@@ -307,6 +311,120 @@ class Admin_Layout_View
 		return $alert;
 	}
 	
+	/**
+	 * getAddProduct
+	 *
+	 * the body for add new products
+	 *
+	 * @return string
+	 */
+	public function getAddProduct()
+	{
+		ob_start();
+		?>
+		<div class="widget-container add-product">
+			<section class="widget small">
+				<input type="hidden" id="lastProduct" value="0">
+		        <header>
+		            <span class="icon">&#128196;</span>
+		            <hgroup>
+		                <h1>Sections</h1>
+		                <h2>Choose a section</h2>
+		            </hgroup>
+		        </header>
+		        <div class="content">
+		        	<input type="hidden" id="sectionChoosed" value="0" />
+		            <table id="myTable" border="0" width="100" class="add-product-sections">
+		                <thead>
+		                    <tr>
+		                        <th>Section title</th>
+		                        <th>Products</th>
+		                    </tr>
+		                </thead>
+	                    <tbody id="sectionsList">
+	                    <?php 
+	                    foreach ($this->data['sections'] as $sections)
+	                    {
+	                    	?>
+	                    	<tr>
+	                            <td><input type="checkbox" sectionId="<?php echo $sections['section_id']; ?>" /> 
+	                            	<a href="/admin/update-section/<?php echo $sections['section_id']; ?>/">
+	                            		<?php echo $sections['title']; ?>
+	                            	</a>
+	                            </td>
+	                            <td>0</td>
+	                        </tr>
+	                    	<?php 
+	                    }
+	                    ?>
+	                    </tbody>
+	                </table>
+		        </div>
+		    </section>
+		    <section class="widget small">
+		        <header>
+		            <span class="icon">&#128196;</span>
+		            <hgroup>
+		                <h1>Categories</h1>
+		                <h2>Choose cageories</h2>
+		            </hgroup>
+		        </header>
+		        <div class="content">
+		        	<ul class="categories-add-product">
+		        		<h1>There is no category assigned</h1>
+		        	</ul>
+		        </div>
+		    </section>
+		</div>
+		<div class="widget-container">
+			<!-- ADD PRODUCT START -->
+		    <div class="clr"></div>
+		    <section class="widget">
+		        <header>
+		            <span class="icon">&#128196;</span>
+		            <hgroup>
+		                <h1>Add a product</h1>
+		                <h2>Fill the fields</h2>
+		            </hgroup>
+		        </header>
+		        <div class="content">
+		        	<div class="field-wrap">
+						<input type="text" value="Product name" id="productTitle" />
+					</div>
+					<div class="field-wrap">
+						<textarea rows="" cols="" id="productSmallDescription">Small Description</textarea>
+					</div>
+					<div class="field-wrap">
+						<textarea rows="" cols="" id="productDescription">Description</textarea>
+					</div>
+					<div class="field-wrap">
+						<input type="text" value="Product brand" id="productBrand" />
+					</div>
+					<div class="field-wrap">
+						<input type="text" value="Keywords" id="productKeywords" />
+					</div>
+					<div class="field-wrap">
+						<input type="text" value="Stock" id="productStock" />
+					</div>
+					<div class="field-wrap">
+						<input type="text" value="Price" id="productPrice" />
+					</div>
+					<button class="blue" id="buttonAddProduct" type="button">Add product</button>
+		            	
+	            	<div class="green alertAddProductSuccess">	
+						<p>The section succesfully added</p>
+						<span class="closeAlert">&#10006;</span>
+					</div>
+		        </div>
+		    </section>
+		    <!-- ADD PRODUCT END -->
+		</div>
+		<?php
+		$sections = ob_get_contents();
+		ob_end_clean();
+		return $sections;
+	}
+
 	/**
 	 * getSectionsContent
 	 * 

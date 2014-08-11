@@ -3,6 +3,10 @@
 
 /**  WIDGETS **/
 
+.clr {
+	claer: both;
+}
+
 .widget-container {
     height: 1%;
     overflow: hidden;
@@ -817,7 +821,7 @@ table#myTable td {
 }
 
 table#myTable thead tr .header {
-    background-image: url('../images/bg.gif');
+    background-image: url('/images/bg.gif');
     background-repeat: no-repeat;
     background-position: center right;
     cursor: pointer;
@@ -825,11 +829,11 @@ table#myTable thead tr .header {
 }
 
 table#myTable thead tr .headerSortUp {
-    background-image: url('../images/asc.gif');
+    background-image: url('/images/asc.gif');
 }
 
 table#myTable thead tr .headerSortDown {
-    background-image: url('../images/desc.gif');
+    background-image: url('/images/desc.gif');
 }
 
 table#myTable thead tr .headerSortDown, table#myTable thead tr .headerSortUp {
@@ -1493,6 +1497,44 @@ display: block;
 .alertAddSectionSuccess,
 .alertUpdateSectionSuccess,
 .alertAddCategorySuccess,
-.alertUpdateCategorySuccess {
+.alertUpdateCategorySuccess,
+.alertAddProductSuccess {
     display: none;
+}
+
+/**  CATEGORIES ON THE ADD PRODUCT SECTION  **/
+.categories-add-product {
+	font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    vertical-align: middle;
+}
+
+.categories-add-product li {
+    border:1px solid #e9e9e9;
+    background:#fff;
+    vertical-align: middle;
+    padding: 15px;
+}
+.categories-add-product li:nth-child(odd) {
+    background:#f0f0f0;
+}
+.categories-add-product li:hover {
+    background: #208ed3; /* Old browsers */
+    background: -moz-linear-gradient(top, #208ed3 0%, #0272bd 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#208ed3), color-stop(100%,#0272bd)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #208ed3 0%,#0272bd 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #208ed3 0%,#0272bd 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #208ed3 0%,#0272bd 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #208ed3 0%,#0272bd 100%); /* W3C */
+    color:#fff;
+    cursor:pointer;
+}
+
+.categories-add-product li input[type="checkbox"] {
+   width: 30px;
+    margin: 0;
+}
+
+.categories-add-product li span {
 }
