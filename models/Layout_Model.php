@@ -59,9 +59,54 @@ class Layout_Model
 	public function getMainSections()
 	{
 		try {
-			$query = 'SELECT * FROM sections WHERE published = 1';
+			$query = 'SELECT * FROM sections 
+					WHERE published = 1';
 			return $this->db->getArray($query);
 				
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+	
+	/**
+	 * getCategoriesBySectionId
+	 *
+	 * returns an array with all the categories linked to a given section id
+	 *
+	 * @param array $data
+	 * @return boolean true on success, false othercase
+	 */
+	public function getCategoriesBySectionId($sectionId)
+	{
+		try {
+			$query = 'SELECT * FROM categories
+					WHERE section_id = '.$sectionId;
+	
+			return $this->db->getArray($query);
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+	
+	/**
+	 * getLastFourProducts 
+	 * 
+	 * returns the last four products published that belongs at last to one category
+	 * 
+	 * @return boolean
+	 */
+	public function getLastFourProducts() {
+		try {
+			$query = 'SELECT p.product_id, p.name, p.brand, p.price, 
+					pr.section_id
+					FROM products p 
+					LEFT JOIN products_relation pr ON p.product_id = pr.product_id
+					WHERE p.published = 1
+					AND pr.section_id IS NOT NULL
+					ORDER BY p.product_id DESC
+					LIMIT 4';
+			
+			return $this->db->getArray($query);
 		} catch (Exception $e) {
 			return false;
 		}

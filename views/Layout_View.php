@@ -35,10 +35,10 @@ class Layout_View
 		
 		<!-- ========== FOOTER START ========== -->
 		<footer id="footer">
-			<?php echo self::getGeneralFooter($data); ?>
+			<?php echo self::getGeneralFooter(); ?>
 		</footer><!-- footer -->
 		<!-- ========== FOOTER END ========== -->
-		<?php echo self::getGeneralCopyright($data); ?>
+		<?php echo self::getGeneralCopyright(); ?>
 		
 		<?php echo self::getShoppingCart(); ?>		
 		
@@ -268,16 +268,33 @@ class Layout_View
 							foreach ($this->data['sections'] as $section)
 							{
 							?>
-							<li class="dropdown">
-								<a href="/store/<?php echo $section['section_id'];?>/<?php echo Tools::slugify($section['title']); ?>/" class="dropdown-toggle" data-toggle="dropdown">
-								<?php echo $section['title']; ?> <b class="caret"></b>
+							<li <?php if ($section['categories']){?> class="dropdown"<?php }?>>
+								<a href="/store/<?php echo $section['section_id'];?>/<?php echo Tools::slugify($section['title']); ?>/" <?php if ($section['categories']){?> class="dropdown-toggle" data-toggle="dropdown"<?php }?> >
+								<?php echo $section['title']; ?>
+								<?php if ($section['categories']){?> <b class="caret"></b><?php }?> 
 								</a>
+								<?php 
+								if ($section['categories'])
+								{
+									?>
 								<ul class="dropdown-menu">
-									<li><a href="category.html">Subcat #1</a></li>
-									<li><a href="category.html">Subcat #2</a></li>
-									<li><a href="category.html">Subcat #3</a></li>
-									<li><a href="category.html">Subcat #4</a></li>
+									<?php 
+									foreach ($section['categories'] as $category)
+									{
+										?>
+										<li>
+											<a href="<?php echo Tools::slugify($category['title']); ?>">
+												<?php echo $category['title']; ?>
+											</a>
+										</li>
+										<?php 
+									}
+									?>
 								</ul>
+									<?php 
+								}
+								?>
+								
 							</li>
 							<?php
 							}
@@ -500,7 +517,7 @@ class Layout_View
 	 * @param NULL
 	 * @return string HTML code
 	 */
-	public static function getMainItemsGrid()
+	public function getMainItemsGrid()
 	{
 		ob_start();
 		?>
@@ -508,7 +525,10 @@ class Layout_View
 		<div class="gap-25"></div>
 
 		<ul class="products row">
-		
+			<?php 
+			foreach ($this->data['lastFourProducts'] as $data)
+			{
+				?>
 			<li class="col-sm-3 first">
 				<div class="product">
 					<div class="thumbnail">
@@ -522,71 +542,16 @@ class Layout_View
 					</div>
 					<hr>
 					<div class="title">
-						<h3><a href="#">new product</a></h3>
-						<p>by Jack &amp; Jones</p>
+						<h3><a href="#"><?php echo $data['name']; ?></a></h3>
+						<p>by <?php echo $data['brand']; ?></p>
 					</div>
-					<span class="price">$18</span>
+					<span class="price">$<?php echo $data['price']; ?></span>
 				</div>
 			</li>
+				<?php 
+			}
 			
-			<li class="col-sm-3">
-				<div class="product">
-					<div class="thumbnail">
-						<a href="product.html"><img src="images-app/product-2.jpg" alt=""></a>
-						<a href="#" class="add-to-cart" title="Add to Cart">
-							<span class="fa-stack fa-2x">
-								<i class="fa fa-circle fa-stack-2x"></i>
-								<i class="fa fa-shopping-cart  fa-stack-1x fa-inverse"></i>
-							</span>
-						</a>
-					</div>
-					<hr>
-					<div class="title">
-						<h3><a href="#">new product</a></h3>
-						<p>by Jack &amp; Jones</p>
-					</div>
-					<span class="price">$18</span>
-				</div>
-			</li>
-			
-			<li class="col-sm-3">
-				<div class="product">
-					<div class="thumbnail">
-						<a href="product.html"><img src="images-app/product-3.jpg" alt=""></a>
-						<a href="#" class="add-to-cart" title="Add to Cart">
-							<span class="fa-stack fa-2x">
-								<i class="fa fa-circle fa-stack-2x"></i>
-								<i class="fa fa-shopping-cart  fa-stack-1x fa-inverse"></i>
-							</span>
-						</a>
-					</div>
-					<hr>
-					<div class="title">
-						<h3><a href="#">new product</a></h3>
-						<p>by Jack &amp; Jones</p>
-					</div>
-					<span class="price">$18</span>
-				</div>
-			</li>
-			
-			<li class="col-sm-3 last">
-				<div class="product">
-					<div class="thumbnail">
-						<a href="product.html"><img src="images-app/product-4.jpg" alt=""></a>
-						<a href="#" class="add-to-cart" title="Add to Cart">
-							<span class="fa-stack fa-2x">
-								<i class="fa fa-circle fa-stack-2x"></i>
-								<i class="fa fa-shopping-cart  fa-stack-1x fa-inverse"></i>
-							</span>
-						</a>
-					</div>
-					<hr>
-					<div class="title">
-						<h3><a href="#">new product</a></h3>
-						<p>by Jack &amp; Jones</p>
-					</div>
-					<span class="price">$18</span>
-				</div>
+			?>
 			</li>
 		</ul>
 		<?php
@@ -605,7 +570,7 @@ class Layout_View
 	 * @return string HTML code
 	 * 
 	 */
-	public static function getMainContent()
+	public function getMainContent()
 	{
 		ob_start();
 		?>
@@ -860,5 +825,10 @@ class Layout_View
 		$cart = ob_get_contents();
 		ob_end_clean();
 		return $cart;
+	}
+	
+	public static function getProductView()
+	{
+		
 	}
 }

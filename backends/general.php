@@ -45,9 +45,22 @@ class generalBackend
 		
 		$data['mainSliders'] = $slidersArray;
 		
-// 		Sections, this is for the links
+// 		Sections, this is for the links, it also include the categories
 		
 		$sectionsArray = $this->model->getMainSections();
+		
+		for ($i = 0; $i < sizeof($sectionsArray); $i++)
+		{
+			$categories = $this->model->getCategoriesBySectionId($sectionsArray[$i]['section_id']);
+			
+			$sectionsArray[$i]['categories'] = $categories;
+		}
+		
+// 		Last four products published
+		
+		$lastFourProductsArray = $this->model->getLastFourProducts();
+		
+		$data['lastFourProducts'] = $lastFourProductsArray;
 		
 		$data['sections'] = $sectionsArray;
 		
@@ -55,8 +68,9 @@ class generalBackend
 	}
 }
 
-// $backend = new generalBackend();
+//  $backend = new generalBackend();
 
 // $info = $backend->loadIndexInfo();
+// var_dump($info);
 
 // var_dump($info);

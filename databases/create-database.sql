@@ -108,12 +108,15 @@ CREATE TABLE products (
     name                VARCHAR(512) NOT NULL,
     description         TEXT NULL,
     small_description   VARCHAR(512) NULL,
-    price               DECIMAL(4,2) NOT NULL DEFAULT 0,
+    price               DECIMAL(8,2) NOT NULL DEFAULT 0,
     keywords            VARCHAR(512) NULL,
     stock               INT(3) NOT NULL DEFAULT 1,
     brand               VARCHAR(256) NULL,
     PRIMARY KEY(product_id)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT = 1;
+
+ALTER TABLE products ADD COLUMN curdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+ALTER TABLE products ADD COLUMN published INT(1) DEFAULT 0;
 
 CREATE TABLE products_relation (
     product_id INT(3) NOT NULL,
