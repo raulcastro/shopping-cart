@@ -11,7 +11,7 @@ class Layout_View
 		$this->data = $data;
 	}
 	
-	public function getMainPage()
+	public function getMainPage($section, $bodyType = '')
 	{
 	ob_start();
 	?>
@@ -21,16 +21,41 @@ class Layout_View
 		<?php echo self::getMainHeader(); ?>
 	</head>
 	
-	<body>
+	<body class="<?php echo $bodyType; ?>">
 	
 		<header id="header">
 			<?php echo self::getGeneralTopNavigation(); ?>
 			<?php echo self::getGeneralMainNavigation(); ?>
 		</header>
 		
-		<?php echo self::getMainSlider(); ?>
+		<?php 
+		switch ($section) {
+			case 'main':
+				echo self::getMainSlider();
+			break;
+			
+			default:
+				;
+			break;
+		}
+		?>
+		
 		<section id="content">
-			<?php echo self::getMainContent(); ?>	
+			<?php 
+			switch ($section) {
+				case 'main':
+					echo self::getMainContent();
+				break;
+				
+				case 'view-product' :
+					echo self::getProductView();
+				break;
+				
+				default:
+					;
+				break;
+			}
+			?>
 		</section>	
 		
 		<!-- ========== FOOTER START ========== -->
@@ -120,14 +145,14 @@ class Layout_View
 		ob_start();
 		?>
 		<!-- Bootstrap -->
-	  	<link href="css/front/bootstrap.min.css" rel="stylesheet">
+	  	<link href="/css/front/bootstrap.min.css" rel="stylesheet">
 	
-	  	<link href="css/front/owl.carousel.css" rel="stylesheet">
-	  	<link href="css/front/owl.theme.css" rel="stylesheet">
-	  	<link href="css/front/owl.transitions.css" rel="stylesheet">
+	  	<link href="/css/front/owl.carousel.css" rel="stylesheet">
+	  	<link href="/css/front/owl.theme.css" rel="stylesheet">
+	  	<link href="/css/front/owl.transitions.css" rel="stylesheet">
 	
-	  	<link href="css/front/style.css" rel="stylesheet">
-	  	<link href="css/front/config.css" rel="stylesheet">
+	  	<link href="/css/front/style.css" rel="stylesheet">
+	  	<link href="/css/front/config.css" rel="stylesheet">
 		<?php 
 		$generalCSS = ob_get_contents();
 		ob_end_clean();
@@ -149,11 +174,11 @@ class Layout_View
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> download this one -->
 		<!-- Include all compiled plugins (below), or include individual files as needed -->
-		<script src="js/jquery-2.1.1.min.js"></script>
-		<script src="js/front/bootstrap.min.js"></script>
-		<script src="js/front/owl.carousel.min.js"></script>
-		<script src="js/front/jquery.jpanelmenu.min.js"></script>
-		<script src="js/front/main.js"></script>
+		<script src="/js/jquery-2.1.1.min.js"></script>
+		<script src="/js/front/bootstrap.min.js"></script>
+		<script src="/js/front/owl.carousel.min.js"></script>
+		<script src="/js/front/jquery.jpanelmenu.min.js"></script>
+		<script src="/js/front/main.js"></script>
 		<?php 
 		$generalScripts = ob_get_contents();
 		ob_end_clean();
@@ -253,8 +278,8 @@ class Layout_View
 							<span class="icon-bar"></span>
 							<span class="icon-bar"></span>
 						</button>
-						<a class="navbar-brand" href="index.html" title="<?php echo $this->data['appInfo']['title']; ?>" rel="home">
-							<img src="images/logo.png" alt="Garbini" class="img-responsive" alt="<?php echo $this->data['appInfo']['title']; ?>">
+						<a class="navbar-brand" href="/" title="<?php echo $this->data['appInfo']['title']; ?>" rel="home">
+							<img src="/images/logo.png" alt="Garbini" class="img-responsive" alt="<?php echo $this->data['appInfo']['title']; ?>">
 						</a>
 					</div>
 					
@@ -393,14 +418,14 @@ class Layout_View
 		?>
 		<div class="row ad-banners">  
 			<div class="col-sm-4">
-				<a href="#"><img src="images-app/ad-1.jpg" alt=""></a>
+				<a href="#"><img src="/images-app/ad-1.jpg" alt=""></a>
 			</div>
 			<div class="col-sm-4">
-				<a href="#"><img src="images-app/ad-2.jpg" alt=""></a>
-				<a href="#"><img src="images-app/ad-3.jpg" alt=""></a>
+				<a href="#"><img src="/images-app/ad-2.jpg" alt=""></a>
+				<a href="#"><img src="/images-app/ad-3.jpg" alt=""></a>
 			</div>
 			<div class="col-sm-4">
-				<a href="#"><img src="images-app/ad-4.jpg" alt=""></a>
+				<a href="#"><img src="/images-app/ad-4.jpg" alt=""></a>
 			</div>
 		</div>
 		<?php 
@@ -528,7 +553,7 @@ class Layout_View
 			<?php 
 			foreach ($this->data['lastFourProducts'] as $data)
 			{
-				?>
+				?>+
 			<li class="col-sm-3 first">
 				<div class="product">
 					<div class="thumbnail">
@@ -542,7 +567,11 @@ class Layout_View
 					</div>
 					<hr>
 					<div class="title">
-						<h3><a href="#"><?php echo $data['name']; ?></a></h3>
+						<h3>
+							<a href="/product/<?php echo $data['section_id']; ?>/<?php echo Tools::slugify($data['title']); ?>/<?php echo $data['product_id']; ?>/<?php echo Tools::slugify($data['name']); ?>/">
+								<?php echo $data['name']; ?>
+							</a>
+						</h3>
 						<p>by <?php echo $data['brand']; ?></p>
 					</div>
 					<span class="price">$<?php echo $data['price']; ?></span>
@@ -827,8 +856,288 @@ class Layout_View
 		return $cart;
 	}
 	
-	public static function getProductView()
+	public function getProductNavigation()
 	{
+		ob_start();
+		?>
+		<ol class="breadcrumb">
+			<li><a href="#">Home</a></li>
+			<li><a href="#">Fow Woman</a></li>
+			<li>Tummy Elastic</li>
+		</ol>
+		<?php
+		$productNavigation = ob_get_contents();
+		ob_get_clean();
+		return $productNavigation;	
+	}
+	
+	public function getProductGallery()
+	{
+		ob_start();
+		?>
+		<div class="col-sm-5">
+				
+			<div id="product-large" class="owl-carousel">
+				<div class="item"><img src="img/images/large.jpg"></div>
+				<div class="item"><img src="img/images/large.jpg"></div>
+				<div class="item"><img src="img/images/large.jpg"></div>
+				<div class="item"><img src="img/images/large.jpg"></div>
+				<div class="item"><img src="img/images/large.jpg"></div>
+				<div class="item"><img src="img/images/large.jpg"></div>
+				<div class="item"><img src="img/images/large.jpg"></div>
+				<div class="item"><img src="img/images/large.jpg"></div>
+			</div>
+			<div id="product-thumb" class="owl-carousel">
+				<div class="item"><img src="http://placehold.it/78x78"></div>
+				<div class="item"><img src="http://placehold.it/78x78"></div>
+				<div class="item"><img src="http://placehold.it/78x78"></div>
+				<div class="item"><img src="http://placehold.it/78x78"></div>
+				<div class="item"><img src="http://placehold.it/78x78"></div>
+				<div class="item"><img src="http://placehold.it/78x78"></div>
+				<div class="item"><img src="http://placehold.it/78x78"></div>
+				<div class="item"><img src="http://placehold.it/78x78"></div>
+			</div>
 		
+		</div>
+		<?php
+		$productGallery = ob_get_contents();
+		ob_end_clean();
+		return $productGallery;	
+	}
+	
+	public function getProductSummary()
+	{
+		ob_start();
+		?>
+		<div class="col-sm-7 summary entry-summary">
+				        
+			<h1 class="product_title"><?php echo $this->data['currentProduct']['name']; ?></h1>
+			
+			<p class="price">
+				<sup>$</sup>
+				<span class="amount"><?php echo intval($this->data['currentProduct']['price']); ?></span>
+				<sup><?php echo sprintf( '%02d',$this->data['currentProduct']['price'] -intval($this->data['currentProduct']['price'])); ?></sup>
+			</p>
+			
+			<h3>Description</h3>
+			
+			<p><?php echo $this->data['currentProduct']['small_description']; ?></p>
+			
+			<hr>
+			
+			<h3>Very Few Items Left!</h3>
+			
+			<div class="variations">
+				<div class="row">
+					<div class="col-sm-6">
+						<select class="form-control col-sm-6" name="color" id="color">
+							<option value="0">Color</option>
+							<option value="red">Red</option>
+							<option value="blue">Blue</option>
+							<option value="green">Green</option>
+						</select>
+					</div>
+					<div class="col-sm-6">
+						<select class="form-control col-sm-6" name="size" id="size">
+							<option value="0">Size</option>
+							<option value="red">M</option>
+							<option value="blue">L</option>
+							<option value="green">XL</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			
+			<div class="quantity buttons_added">
+				<button class="minus"><i class="fa fa-minus"></i></button>
+				<input type="number" size="4" class="qty text form-control" title="Qty" value="1" name="qty" step="1">
+				<button class="plus"><i class="fa fa-plus"></i></button>
+			</div>
+			
+			<input type="submit" class="btn btn-primary btn-lg" id="add-to-cart" value="Add to Cart">
+		        
+		</div>
+		<?php
+		$productSummary = ob_get_contents();
+		ob_end_clean();
+		return $productSummary;	
+	}
+	
+	public function getProductTabs()
+	{
+		ob_start();
+		?>
+		<!-- Nav tabs -->
+		<ul class="nav nav-tabs product-tabs">
+			<li class="active"><a href="#description" data-toggle="tab">Description</a></li>
+			<li><a href="#reviews" data-toggle="tab">Reviews (3)</a></li>
+		</ul>
+		<?php
+		$productTabs = ob_get_contents();
+		ob_end_clean();
+		return $productTabs;	
+	}
+	
+	public function getProductTabsContent()
+	{
+		ob_start();
+		?>
+		<!-- Tab panes -->
+		<div class="tab-content">
+			<div class="tab-pane active" id="description">
+				<p><?php echo $this->data['currentProduct']['description']; ?></p>
+				
+			</div>
+			<div class="tab-pane" id="reviews">
+			
+				<div id="reviews">
+					<ol class="commentlist">
+					
+						<li class="comment">
+							<div class="comment_container">
+								<img src="http://placehold.it/64x64" class="avatar">
+								<div class="comment-text">
+									<div class="start-rating">
+										<span class="glyphicon glyphicon-star"></span>
+										<span class="glyphicon glyphicon-star"></span>
+										<span class="glyphicon glyphicon-star"></span>
+										<span class="glyphicon glyphicon-star"></span>
+										<span class="glyphicon glyphicon-star"></span>
+									</div>
+									<h5 class="meta">James Koster <span>&mdash; June 7, 2013</span></h5>                
+									<p>Really happy with this print. The colors are great, and the paper quality is good too.</p>
+								</div>
+							</div>
+						</li>
+						
+						<li class="comment">
+							<div class="comment_container">
+								<img src="http://placehold.it/64x64" class="avatar">
+								<div class="comment-text">
+									<div class="start-rating">
+										<span class="glyphicon glyphicon-star"></span>
+										<span class="glyphicon glyphicon-star"></span>
+										<span class="glyphicon glyphicon-star"></span>
+										<span class="glyphicon glyphicon-star"></span>
+										<span class="glyphicon glyphicon-star"></span>
+									</div>
+									<h5 class="meta">Cobus Bester <span>&mdash; June 7, 2013</span></h5>                
+									<p>You only get the picture, not the person holding it, something they don’t mention in the description, now I’ve got to find my own person.</p>
+								</div>
+							</div>
+						</li>
+						
+						<li class="comment">
+							<div class="comment_container">
+								<img src="http://placehold.it/64x64" class="avatar">
+								<div class="comment-text">
+									<div class="start-rating">
+										<span class="glyphicon glyphicon-star"></span>
+										<span class="glyphicon glyphicon-star"></span>
+										<span class="glyphicon glyphicon-star"></span>
+										<span class="glyphicon glyphicon-star"></span>
+										<span class="glyphicon glyphicon-star"></span>
+									</div>
+									<h5 class="meta">Stuart <span>&mdash; June 7, 2013</span></h5>                
+									<p>This is a fantastic quality print and is happily hanging framed on my wall now.</p>
+								</div>
+							</div>
+						</li>
+					
+					</ol>
+				</div>
+				
+				<hr>
+				
+				<div id="review_form">
+					<h3 id="reply-title" class="comment-reply-title">Add a Review</h3>
+					<form action="#" id="commentform" class="comment-form">
+						<div class="row">
+							<p class="comment-form-author col-sm-4">
+								<input type="text" placeholder="Author *" class="form-control">
+							</p>
+							<p class="comment-form-email col-sm-4">
+								<input type="email" placeholder="Email *" class="form-control">
+							</p>
+							<p class="comment-form-rating col-sm-4">
+								<select class="form-control">
+									<option value="0">Your Rating</option>
+									<option value="0">Perfect &mdash; 5*</option>
+									<option value="0">Good &mdash; 4*</option>
+									<option value="0">Average &mdash; 3*</option>
+									<option value="0">Not That Bad &mdash; 2*</option>
+									<option value="0">Very Poor &mdash; 1*</option>
+								</select>
+							</p>                  
+						</div>
+						<p class="comment-form-comment"><textarea name="review" id="review" class="form-control" cols="30" rows="5" placeholder="Your Review"></textarea></p>
+						<p class="form-submit"><input type="submit" class="btn btn-primary btn-lg" name="proceed" value="Post Review"></p>
+					</form>
+				</div>
+			
+			</div>
+		</div>
+		<?php
+		$productTabsContent = ob_get_contents();
+		ob_end_clean();
+		return $productTabsContent;	
+	}
+	
+	public function getProductsRelated()
+	{
+		ob_start();
+		?>
+		<div class="related">
+			<h2>You May Also Like</h2>
+			<ul class="products row">
+				<li class="col-sm-3">
+					<div class="product">
+						<div class="thumbnail">
+							<a href="product.html"><img src="img/images/product-2.jpg" alt=""></a>
+							<a href="#" class="add-to-cart" title="Add to Cart">
+								<span class="fa-stack fa-2x">
+									<i class="fa fa-circle fa-stack-2x"></i>
+									<i class="fa fa-shopping-cart  fa-stack-1x fa-inverse"></i>
+								</span>
+							</a>
+						</div>
+						<hr>
+						<div class="title">
+							<h3><a href="#">Reshape Panties</a></h3>
+							<p>by Jack &amp; Jones</p>
+						</div>
+						<span class="price">$18</span>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<?php
+		$productsRelated = ob_get_contents();
+		ob_get_clean();
+		return $productsRelated;
+	}
+	
+	public function getProductView()
+	{
+		ob_start();
+		?>
+		<div class="container">
+		
+			<?php echo self::getProductNavigation(); ?>	
+			
+			<div class="row">
+				<?php echo self::getProductGallery(); ?>
+				<?php echo self::getProductSummary(); ?>
+			</div>
+			
+			<?php echo self::getProductTabs(); ?>
+			<?php echo self::getProductTabsContent(); ?>
+			<?php echo self::getProductsRelated(); ?>
+		</div>
+		
+		<?php
+		$productView = ob_get_contents();
+		ob_end_clean();
+		return $productView;	
 	}
 }

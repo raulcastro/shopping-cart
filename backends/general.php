@@ -66,6 +66,11 @@ class generalBackend
 		
 		return $data;
 	}
+	
+	public function getCurrentProduct($productId)
+	{
+		return $this->model->getProductByProductId($productId);
+	}
 }
 
 //  $backend = new generalBackend();

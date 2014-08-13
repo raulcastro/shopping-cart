@@ -98,9 +98,11 @@ class Layout_Model
 	public function getLastFourProducts() {
 		try {
 			$query = 'SELECT p.product_id, p.name, p.brand, p.price, 
-					pr.section_id
+					pr.section_id,
+					s.title
 					FROM products p 
 					LEFT JOIN products_relation pr ON p.product_id = pr.product_id
+					LEFT JOIN sections s ON s.section_id = pr.section_id
 					WHERE p.published = 1
 					AND pr.section_id IS NOT NULL
 					ORDER BY p.product_id DESC
@@ -111,4 +113,26 @@ class Layout_Model
 			return false;
 		}
 	}
+	
+	public function getProductByProductId($productId) {
+		try {
+			$query = 'SELECT p.product_id, p.name, p.brand, p.price,
+					p.small_description, p.description, 
+					pr.section_id,
+					s.title
+					FROM products p
+					LEFT JOIN products_relation pr ON p.product_id = pr.product_id
+					LEFT JOIN sections s ON s.section_id = pr.section_id
+					WHERE p.published = 1
+					AND pr.section_id IS NOT NULL
+					AND p.product_id = '.$productId.' 
+					ORDER BY p.product_id DESC
+					LIMIT 4';
+				
+			return $this->db->getRow($query);
+		} catch (Exception $e) {
+			return false;
+		}
+	}
 }
+

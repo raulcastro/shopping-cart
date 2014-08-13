@@ -7,4 +7,4 @@ $data 		= $backend->loadIndexInfo();
 // var_dump($data);
 $view 		= new Layout_View($data);
 
-echo $view->getMainPage();
+echo $view->getMainPage('main');
