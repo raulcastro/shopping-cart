@@ -553,7 +553,7 @@ class Layout_View
 			<?php 
 			foreach ($this->data['lastFourProducts'] as $data)
 			{
-				?>+
+				?>
 			<li class="col-sm-3 first">
 				<div class="product">
 					<div class="thumbnail">

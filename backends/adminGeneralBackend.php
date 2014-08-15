@@ -68,6 +68,12 @@ class adminGeneralBackend
 		
 		$data['sections'] = $sectionsArray;
 		
+// 		Products, all products that at least belongs to a category, published
+
+		$productsArray = $this->model->getAllProducts();
+		
+		$data['products'] = $productsArray;
+		
 		return $data;
 	}
 	

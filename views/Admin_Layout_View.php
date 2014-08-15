@@ -141,6 +141,10 @@ class Admin_Layout_View
 						echo self::getSectionsUpdate();
 					break;
 					
+					case 'all-products':
+						echo self::getAllProducts();
+					break;
+					
 					case 'add-product':
 						echo self::getAddProduct();
 					break;
@@ -255,10 +259,9 @@ class Admin_Layout_View
 		            </ul>   
 		        </li>
 		        <li>
-		            <a href="blog-timeline.html"><span class="icon">&#59160;</span> Produtcs <span class="pip">12</span></a>
+		            <a href="/admin/products/"><span class="icon">&#59160;</span> Produtcs <span class="pip"><?php echo sizeof($this->data['products']); ?></span></a>
 		            <ul class="submenu">
 		                <li><a href="/admin/add-product/">New product</a></li>
-		                <li><a href="blog-table.html">All products</a></li>
 		            </ul>
 		        </li>
 		        <li>
@@ -424,6 +427,82 @@ class Admin_Layout_View
 		ob_end_clean();
 		return $sections;
 	}
+	
+	/**
+	 * getAllProducts
+	 *
+	 * This view show all the products added to the shopping cart
+	 *
+	 * @return string
+	 */
+	public function getAllProducts()
+	{
+		ob_start();
+		?>
+			<section class="widget">
+		        <header>
+		            <span class="icon">&#128196;</span>
+		            <hgroup>
+		                <h1>Products</h1>
+		                <h2>All products</h2>
+		            </hgroup>
+		        </header>
+		        <div class="content">
+		            <table id="myTable" border="0" width="100">
+		                <thead>
+		                    <tr>
+		                        <th>Product Name</th>
+		                        <th>Price</th>
+		                        <th>Date</th>
+		                        <th>Section</th>
+		                        <th>Stock</th>
+		                        <th>Published</th>
+		                    </tr>
+		                </thead>
+	                    <tbody id="sectionsList">
+	                    <?php 
+	                    foreach ($this->data['products'] as $product)
+	                    {
+	                    	?>
+	                    	<tr id="productRow<?php echo $product['product_id']; ?>">
+	                            <td><input type="checkbox" productId="<?php echo $product['product_id']; ?>" /> 
+	                            	<a href="/admin/update-section/<?php echo $product['product_id']; ?>/">
+	                            		<?php echo Tools::shortString($product['name'], 27); ?>
+	                            	</a>
+	                            </td>
+	                            <td>$<?php echo $product['price']; ?></td>
+	                            <td><?php echo Tools::formatMYSQLToFront($product['curdate']); ?></td>
+	                            <td><?php echo $product['title']; ?></td>
+	                            <td><?php echo $product['stock']; ?></td>
+	                            <td><span class="entyphochar" id="sectionIcon<?php echo $product['section_id']; ?>">
+	                            <?php 
+	                            if ($product['published'] == 1)
+	                            {
+	                            	?>
+	                            	&#10003;
+	                            	<?php
+	                            }
+	                            else 
+	                            {
+	                            	?>
+	                            	&#128683;
+	                            	<?php
+	                            }
+	                            ?>
+	                            </span></td>
+	                        </tr>
+	                    	<?php 
+	                    }
+	                    ?>
+	                    </tbody>
+	                </table>
+		        </div>
+		    </section>
+			<?php
+			$sections = ob_get_contents();
+			ob_end_clean();
+			return $sections;
+		}
 
 	/**
 	 * getSectionsContent

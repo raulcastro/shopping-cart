@@ -469,6 +469,18 @@ class Tools
     	}
     }
     
+    public static function shortString($string, $length)
+    {
+    	if (strlen($string) > $length)
+    	{
+    		$string = strip_tags($string);
+    		$string = substr($string, 0, $length);
+    		return $string.' ...';
+    	} else {
+    		return $string;
+    	}
+    }
+    
     public function getThumb($name, $from, $to,  $value, $prop, $pre = '', $quality = 100)
 	{
 		$original = $from.$name;

@@ -378,6 +378,33 @@ class Admin_Layout_Model
 	}
 	
 	/**
+	 * getAllProducts
+	 *
+	 * returns the all products published that belongs at last to one category
+	 *
+	 * @return boolean/array false on failed, array of products on success
+	 */
+	public function getAllProducts() {
+		try {
+			$query = 'SELECT p.product_id, p.name, p.brand, p.price, p.curdate,
+					p.stock, p.published, 
+					pr.section_id,
+					s.title
+					FROM products p
+					LEFT JOIN products_relation pr ON p.product_id = pr.product_id
+					LEFT JOIN sections s ON s.section_id = pr.section_id
+					WHERE p.published = 1
+					AND pr.section_id IS NOT NULL
+					ORDER BY p.product_id DESC
+					';
+				
+			return $this->db->getArray($query);
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+	
+	/**
 	 * createRelations
 	 * 
 	 * Query for create the relations among products, sections and categories
